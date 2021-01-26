@@ -64,7 +64,18 @@ function Landing() {
             </div>
           </div>
 
-          <div className="col-md-8"></div>
+          <div className="col-md-8">
+            <div className="wrap-counter">
+              <div className="counter"></div>
+              <div className="word">
+                <span className="true">W</span>
+                <span className="true">i</span>
+                <span className="active false">n</span>
+                dow
+              </div>
+              <input type="text" />
+            </div>
+          </div>
         </div>
       </div>
     </div>
