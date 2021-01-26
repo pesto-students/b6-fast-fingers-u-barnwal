@@ -3,6 +3,10 @@ import "./css/App.css";
 
 // + Image
 import imgLogo from "./images/logo.svg";
+import imgPlay from "./images/icons/play.png";
+import imgMan from "./images/icons/man.png";
+import imgTeen from "./images/icons/teen.png";
+import imgToddler from "./images/icons/toddler.png";
 
 function App() {
   return (
@@ -20,6 +24,31 @@ function App() {
 
         <div className="wrap-inputs">
           <input type="text" placeholder="Type your name..." />
+
+          <div className="wrap-difficulty">
+            <div className="easy active">
+              <img src={imgToddler} alt="" />
+              <br />
+              <span>Easy</span>
+            </div>
+
+            <div className="medium">
+              <img src={imgTeen} alt="" />
+              <br />
+              <span>Medium</span>
+            </div>
+
+            <div className="hard">
+              <img src={imgMan} alt="" />
+              <br />
+              <span>Hard</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="btn-play">
+          <img src={imgPlay} alt="" />
+          <span>Start Game</span>
         </div>
       </div>
 
