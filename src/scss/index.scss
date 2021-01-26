@@ -1,11 +1,4 @@
-// + colors
-
-$color-primary: #f04f53;
-$color-secondary: #97a4a7;
-$color-secondary-text: #032228;
-
-// + radius
-$default-border-radius: 5px;
+@import "./variables";
 
 body {
   margin: 0;
