@@ -1,10 +1,12 @@
 import React from "react";
 import Landing from "./pages/Landing";
+import Game from "./pages/Game";
 
 function App() {
   return (
     <main>
-      <Landing></Landing>
+      {/* <Landing></Landing> */}
+      <Game></Game>
     </main>
   );
 }
