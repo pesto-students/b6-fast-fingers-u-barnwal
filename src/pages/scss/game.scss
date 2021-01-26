@@ -38,7 +38,6 @@
 
       &:hover {
         background-color: rgba($color: $color-primary, $alpha: 0.5);
-        // transform: scale(1.1);
       }
 
       .ic {
@@ -56,11 +55,6 @@
 
   .row {
     min-height: 85vh;
-
-    // .col-md-4,
-    // .col-md-12 {
-    //   padding: 1em;
-    // }
   }
 
   .wrap-scores {
@@ -71,7 +65,9 @@
 
     .title {
       color: black;
-      background-color: rgba($color: white, $alpha: 0.8);
+      background-color: $color-secondary;
+      text-transform: uppercase;
+      border-bottom: 2px solid $color-primary;
       border-radius: $default-border-radius $default-border-radius 0 0;
       padding: 1em;
       font-weight: bold;
