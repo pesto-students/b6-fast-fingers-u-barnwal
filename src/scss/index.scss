@@ -18,6 +18,8 @@ code {
     monospace;
 }
 
+// - Commons - //
+
 .labeled-hr {
   display: flex;
   width: 80%;
@@ -34,4 +36,13 @@ code {
     text-transform: uppercase;
     font-weight: bold;
   }
+}
+
+.flex-fill {
+  flex: 1;
+}
+
+.row {
+  width: 100%;
+  margin: auto !important;
 }

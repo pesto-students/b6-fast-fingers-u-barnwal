@@ -1,54 +1,71 @@
 import React from "react";
-import "./css/landing.css";
+import "./css/game.css";
 import { Button } from "react-bootstrap";
 
 // + Image
 import imgLogo from "./../images/logo.svg";
-import imgPlay from "./../images/icons/play.png";
-import imgMan from "./../images/icons/man.png";
-import imgTeen from "./../images/icons/teen.png";
-import imgToddler from "./../images/icons/toddler.png";
+import icUser from "./../images/icons/person.png";
+import icCross from "./../images/icons/cross.png";
 
 function Landing() {
   return (
-    <div className="landing">
-      <img src={imgLogo} alt="" />
+    <div className="game">
+      <div className="nav">
+        <img className="logo" src={imgLogo} alt="" />
+        <h5>Fast Fingers</h5>
 
-      <h1>Fast Fingers</h1>
+        <div className="flex-fill"></div>
 
-      <div className="labeled-hr">
-        <div></div>
-        <span>The ultimate typing game</span>
-        <div></div>
-      </div>
+        <img className="ic" src={icUser} alt="" />
+        <h6>Your name</h6>
 
-      <div className="wrap-inputs">
-        <input type="text" placeholder="Type your name..." />
-
-        <div className="wrap-difficulty">
-          <div className="easy active">
-            <img src={imgToddler} alt="" />
-            <br />
-            <span>Easy</span>
-          </div>
-
-          <div className="medium">
-            <img src={imgTeen} alt="" />
-            <br />
-            <span>Medium</span>
-          </div>
-
-          <div className="hard">
-            <img src={imgMan} alt="" />
-            <br />
-            <span>Hard</span>
-          </div>
+        <div className="btn-end">
+          <img className="ic" src={icCross} alt="" />
+          <h6>End Game</h6>
         </div>
       </div>
 
-      <div className="btn-play">
-        <img src={imgPlay} alt="" />
-        <span>Start Game</span>
+      <br />
+
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-md-4">
+            <div className="wrap-scores">
+              <div className="title">Score Board</div>
+              <div className="body">
+                <table>
+                  <tbody>
+                    <tr>
+                      <th>Game 1</th>
+                      <th>:</th>
+                      <td>00:00 </td>
+                    </tr>
+
+                    <tr>
+                      <th>Game 2</th>
+                      <th>:</th>
+                      <td>00:00 </td>
+                    </tr>
+
+                    <tr className="best">
+                      <th>Game 3</th>
+                      <th>:</th>
+                      <td>00:00 </td>
+                    </tr>
+
+                    <tr>
+                      <th>Game 4</th>
+                      <th>:</th>
+                      <td>00:00 </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div className="col-md-8"></div>
+        </div>
       </div>
     </div>
   );
