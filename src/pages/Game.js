@@ -1,6 +1,7 @@
 import React from "react";
 import "./css/game.css";
-import { Button } from "react-bootstrap";
+import { CircularProgressbar } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
 
 // + Image
 import imgLogo from "./../images/logo.svg";
@@ -29,7 +30,22 @@ function Landing() {
 
       <div className="container-fluid">
         <div className="row">
-          <div className="col-md-4">
+          <div className="col-md-8 my-4 my-md-0 order-md-12">
+            <div className="wrap-counter">
+              <div className="counter">
+                <CircularProgressbar value={150} maxValue="200" text={50} />
+              </div>
+              <div className="word">
+                <span className="true">W</span>
+                <span className="true">i</span>
+                <span className="active false">n</span>
+                dow
+              </div>
+              <input type="text" />
+            </div>
+          </div>
+
+          <div className="col-md-4 my-4 my-md-0">
             <div className="wrap-scores">
               <div className="title">Score Board</div>
               <div className="body">
@@ -61,19 +77,6 @@ function Landing() {
                   </tbody>
                 </table>
               </div>
-            </div>
-          </div>
-
-          <div className="col-md-8">
-            <div className="wrap-counter">
-              <div className="counter"></div>
-              <div className="word">
-                <span className="true">W</span>
-                <span className="true">i</span>
-                <span className="active false">n</span>
-                dow
-              </div>
-              <input type="text" />
             </div>
           </div>
         </div>

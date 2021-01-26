@@ -170,6 +170,18 @@
           justify-content: center;
 }
 
+.game .wrap-counter .counter .CircularProgressbar-path {
+  stroke: #f04f53;
+}
+
+.game .wrap-counter .counter .CircularProgressbar-trail {
+  stroke: #97a4a7;
+}
+
+.game .wrap-counter .counter .CircularProgressbar-text {
+  fill: #f04f53;
+}
+
 .game .wrap-counter .word {
   font-weight: bold;
   font-size: 2.8em;

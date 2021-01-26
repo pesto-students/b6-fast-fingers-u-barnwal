@@ -56,6 +56,11 @@
 
   .row {
     min-height: 85vh;
+
+    // .col-md-4,
+    // .col-md-12 {
+    //   padding: 1em;
+    // }
   }
 
   .wrap-scores {
@@ -156,6 +161,17 @@
     justify-content: center;
 
     .counter {
+      .CircularProgressbar-path {
+        stroke: $color-primary;
+      }
+
+      .CircularProgressbar-trail {
+        stroke: $color-secondary;
+      }
+
+      .CircularProgressbar-text {
+        fill: $color-primary;
+      }
     }
 
     .word {
