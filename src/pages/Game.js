@@ -21,7 +21,7 @@ class Game extends Component {
           <img className="ic" src={icUser} alt="" />
           <h6>{this.props.user.name}</h6>
 
-          <div className="btn-end">
+          <div className="btn-end" onClick={this.props.onEnd}>
             <img className="ic" src={icCross} alt="" />
             <h6>End Game</h6>
           </div>

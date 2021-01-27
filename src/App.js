@@ -13,12 +13,17 @@ class App extends Component {
     this.setState({ gameStarted: true, name, difficulty });
   };
 
+  handleGameEnd = () => {
+    this.setState({ gameStarted: false, name: "", difficulty: "" });
+  };
+
   render() {
     return (
       <main>
         {this.state.gameStarted ? (
           <Game
             user={{ name: this.state.name, difficulty: this.state.difficulty }}
+            onEnd={this.handleGameEnd}
           />
         ) : (
           <Landing onStart={this.handleGameStart} />
