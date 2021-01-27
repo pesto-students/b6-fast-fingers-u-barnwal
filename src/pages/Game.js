@@ -1,7 +1,11 @@
 import React, { Component } from "react";
-import "./css/game.css";
 import { CircularProgressbar } from "react-circular-progressbar";
+import { DifficultyBox } from "../components/Difficulty";
+
+// + Styles
 import "react-circular-progressbar/dist/styles.css";
+import "./css/landing.css";
+import "./css/game.css";
 
 // + Image
 import imgLogo from "./../images/logo.svg";
@@ -79,6 +83,8 @@ class Game extends Component {
                   </table>
                 </div>
               </div>
+              <br />
+              <DifficultyBox type={this.props.user.difficulty} />
             </div>
           </div>
         </div>

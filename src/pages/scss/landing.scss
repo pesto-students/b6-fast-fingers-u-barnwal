@@ -53,37 +53,6 @@
     .wrap-difficulty {
       display: flex;
       margin: 1em 0;
-
-      div {
-        flex: 1;
-        padding: 1em;
-        background-color: rgba($color-secondary, 0.6);
-        color: $color-secondary-text;
-        border-radius: $default-border-radius;
-        font-weight: bold;
-        text-align: center;
-        user-select: none;
-        cursor: pointer;
-        transition: background-color, transform 0.2s;
-
-        &:hover {
-          transform: scale(0.9);
-        }
-
-        &:nth-child(2) {
-          margin: 0 1em;
-        }
-
-        &.active {
-          background-color: rgba($color-secondary, 1);
-        }
-
-        img {
-          height: 40px;
-          object-fit: contain;
-          margin-bottom: 0.5em;
-        }
-      }
     }
   }
 
@@ -106,5 +75,36 @@
       object-fit: contain;
       margin-right: 0.8em;
     }
+  }
+}
+
+.box-difficulty {
+  flex: 1;
+  padding: 1em;
+  background-color: rgba($color-secondary, 0.6);
+  color: $color-secondary-text;
+  border-radius: $default-border-radius;
+  font-weight: bold;
+  text-align: center;
+  user-select: none;
+  cursor: pointer;
+  transition: background-color, transform 0.2s;
+
+  &:hover {
+    transform: scale(0.9);
+  }
+
+  &:nth-child(2) {
+    margin: 0 1em;
+  }
+
+  &.active {
+    background-color: rgba($color-secondary, 1);
+  }
+
+  img {
+    height: 40px;
+    object-fit: contain;
+    margin-bottom: 0.5em;
   }
 }

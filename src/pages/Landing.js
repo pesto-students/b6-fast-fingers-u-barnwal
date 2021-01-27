@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-import "./css/landing.css";
-import Difficulty from "../components/Difficulty";
-
+import { Difficulty } from "../components/Difficulty";
 import { SlideDown } from "react-slidedown";
+
+// + Styles
 import "react-slidedown/lib/slidedown.css";
+import "./css/landing.css";
 
 // + Image
 import imgLogo from "./../images/logo.svg";

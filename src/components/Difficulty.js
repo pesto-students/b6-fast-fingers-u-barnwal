@@ -5,7 +5,7 @@ import imgToddler from "./../images/icons/toddler.png";
 
 function DifficultyBox({ type, active = false, onClick = null }) {
   let getClasses = () => {
-    return type + (active ? " active" : "");
+    return "box-difficulty " + type + (active ? " active" : "");
   };
 
   let getLabel = () => {
@@ -68,4 +68,4 @@ class Difficulty extends Component {
   }
 }
 
-export default Difficulty;
+export { Difficulty, DifficultyBox };
