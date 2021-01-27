@@ -11,6 +11,8 @@ class WordCounter extends Component {
     letters: [],
     tick: 0,
     max: 0,
+    text: "",
+    // index: 0,
   };
 
   timer = null;
@@ -37,6 +39,32 @@ class WordCounter extends Component {
     }, 1000);
   }
 
+  handleTextChanged = (e) => {
+    let text = e.target.value;
+
+    // * cannot delete anything
+    if (text.length < this.state.text.length) return;
+
+    let index = text.length - 1;
+
+    if (text[index].toLowerCase() === this.state.letters[index].name) {
+      let letter = this.state.letters[index];
+      letter.state = true;
+
+      this.setState({
+        text: e.target.value,
+        letters: this.state.letters,
+      });
+    } else {
+      let letter = this.state.letters[index];
+      letter.state = false;
+
+      this.setState({
+        letters: this.state.letters,
+      });
+    }
+  };
+
   handleWordCompleted = () => {};
 
   handleCounterEnd = () => {
@@ -57,12 +85,21 @@ class WordCounter extends Component {
         </div>
         <div className="word">
           {this.state.letters.map((l) => (
-            <span className={l.state + (l.active ? " active" : "")} key={l.key}>
+            <span
+              className={
+                l.state + (l.key === this.state.text.length ? " active" : "")
+              }
+              key={l.key}
+            >
               {l.name}
             </span>
           ))}
         </div>
-        <input type="text" />
+        <input
+          type="text"
+          value={this.state.text}
+          onChange={this.handleTextChanged}
+        />
       </div>
     );
   }

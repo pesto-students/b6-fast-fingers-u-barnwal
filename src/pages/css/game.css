@@ -238,6 +238,7 @@
   border: none;
   font-size: 1.1em;
   outline: none;
+  text-transform: uppercase;
 }
 
 .game .wrap-counter input::-webkit-input-placeholder {
