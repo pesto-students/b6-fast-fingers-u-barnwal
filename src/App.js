@@ -14,7 +14,7 @@ class App extends Component {
   };
 
   handleGameEnd = () => {
-    this.setState({ gameStarted: false, name: "", difficulty: "" });
+    this.setState({ gameStarted: false, name: "", difficulty: {} });
   };
 
   render() {
@@ -24,7 +24,8 @@ class App extends Component {
       <main>
         {this.state.gameStarted ? (
           <Game
-            user={{ name: this.state.name, difficulty: this.state.difficulty }}
+            user={{ name: this.state.name }}
+            difficulty={this.state.difficulty}
             onEnd={this.handleGameEnd}
           />
         ) : (

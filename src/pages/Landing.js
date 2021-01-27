@@ -19,6 +19,8 @@ class Landing extends Component {
 
   handleStartGame = () => {
     if (this.state.name === "") this.showError("Please enter your name!");
+    else if (!this.state.difficulty.hasOwnProperty("key"))
+      this.showError("Please choose a difficulty!");
     else
       this.props.onStart({
         name: this.state.name,
@@ -65,7 +67,7 @@ class Landing extends Component {
           <SlideDown className={"my-dropdown-slideup"}>
             {this.state.error !== "" ? (
               <div className="txtError mt-3">
-                <b>Please enter your name!</b>
+                <b>{this.state.error}</b>
               </div>
             ) : (
               ""

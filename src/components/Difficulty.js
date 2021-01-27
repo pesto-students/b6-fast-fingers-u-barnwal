@@ -52,7 +52,7 @@ function DifficultyBox({ difficulty, active = false, onClick = null }) {
 
 class Difficulty extends Component {
   state = {
-    selected: difficulties.easy,
+    selected: {},
   };
 
   handleDifficultySelect = (selected) => {
@@ -62,6 +62,7 @@ class Difficulty extends Component {
 
   render() {
     const { selected } = this.state;
+
     return (
       <div className="wrap-difficulty">
         <DifficultyBox

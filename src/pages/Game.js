@@ -13,6 +13,8 @@ import WordCounter from "../components/WordCounter";
 
 class Game extends Component {
   render() {
+    console.log("Game", this.props);
+
     return (
       <div className="game">
         <div className="nav">
@@ -41,7 +43,7 @@ class Game extends Component {
         <div className="container-fluid">
           <div className="row">
             <div className="col-md-8 my-4 my-md-0 order-md-12">
-              <WordCounter word="Window" />
+              <WordCounter word="test" factor={this.props.difficulty.factor} />
             </div>
 
             <div className="col-md-4 my-4 my-md-0">
@@ -78,10 +80,7 @@ class Game extends Component {
                 </div>
               </div>
               <br />
-              <DifficultyBox
-                difficulty={this.props.user.difficulty}
-                active="true"
-              />
+              <DifficultyBox difficulty={this.props.difficulty} active="true" />
             </div>
           </div>
         </div>
