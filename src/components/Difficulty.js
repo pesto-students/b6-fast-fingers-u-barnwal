@@ -36,11 +36,12 @@ function DifficultyBox({ type, active = false, onClick = null }) {
 
 class Difficulty extends Component {
   state = {
-    selectedType: "easy",
+    selectedType: this.props.defaultDifficulty,
   };
 
   handleDifficultySelect = (selectedType) => {
     this.setState({ selectedType });
+    this.props.onDifficultyChanged(selectedType);
   };
 
   render() {
@@ -48,19 +49,19 @@ class Difficulty extends Component {
     return (
       <div className="wrap-difficulty">
         <DifficultyBox
-          onClick={() => this.handleDifficultySelect("easy")}
           type="easy"
           active={selectedType === "easy"}
+          onClick={() => this.handleDifficultySelect("easy")}
         />
         <DifficultyBox
-          onClick={() => this.handleDifficultySelect("medium")}
           type="medium"
           active={selectedType === "medium"}
+          onClick={() => this.handleDifficultySelect("medium")}
         />
         <DifficultyBox
-          onClick={() => this.handleDifficultySelect("hard")}
           type="hard"
           active={selectedType === "hard"}
+          onClick={() => this.handleDifficultySelect("hard")}
         />
       </div>
     );
@@ -68,17 +69,3 @@ class Difficulty extends Component {
 }
 
 export default Difficulty;
-
-// function Difficulty() {
-//   return (
-//     <div className="wrap-difficulty">
-//       <DifficultyBox type="easy" active="true" />
-
-//       <DifficultyBox type="medium" />
-
-//       <DifficultyBox type="hard" />
-//     </div>
-//   );
-// }
-
-// export default Difficulty;
