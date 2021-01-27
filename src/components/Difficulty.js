@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+
+// + Images
 import imgMan from "./../images/icons/man.png";
 import imgTeen from "./../images/icons/teen.png";
 import imgToddler from "./../images/icons/toddler.png";

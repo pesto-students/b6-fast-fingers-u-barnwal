@@ -4,7 +4,7 @@ import Game from "./pages/Game";
 
 class App extends Component {
   state = {
-    gameStarted: false,
+    gameStarted: true,
     name: "",
     difficulty: "",
   };

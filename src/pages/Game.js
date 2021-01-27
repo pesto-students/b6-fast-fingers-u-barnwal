@@ -1,9 +1,7 @@
 import React, { Component } from "react";
-import { CircularProgressbar } from "react-circular-progressbar";
 import { DifficultyBox } from "../components/Difficulty";
 
 // + Styles
-import "react-circular-progressbar/dist/styles.css";
 import "./css/landing.css";
 import "./css/game.css";
 
@@ -11,6 +9,7 @@ import "./css/game.css";
 import imgLogo from "./../images/logo.svg";
 import icUser from "./../images/icons/person.png";
 import icCross from "./../images/icons/cross.png";
+import WordCounter from "../components/WordCounter";
 
 class Game extends Component {
   render() {
@@ -42,18 +41,7 @@ class Game extends Component {
         <div className="container-fluid">
           <div className="row">
             <div className="col-md-8 my-4 my-md-0 order-md-12">
-              <div className="wrap-counter">
-                <div className="counter">
-                  <CircularProgressbar value={150} maxValue="200" text={50} />
-                </div>
-                <div className="word">
-                  <span className="true">W</span>
-                  <span className="true">i</span>
-                  <span className="active false">n</span>
-                  dow
-                </div>
-                <input type="text" />
-              </div>
+              <WordCounter word="Window" />
             </div>
 
             <div className="col-md-4 my-4 my-md-0">
