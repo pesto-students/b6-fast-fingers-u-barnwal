@@ -10,13 +10,16 @@ class Landing extends Component {
   state = {
     name: "",
     difficulty: "easy",
+    error: "",
   };
 
   handleStartGame = () => {
-    this.props.onStart({
-      name: this.state.name,
-      difficulty: this.state.difficulty,
-    });
+    if (this.state.name === "") this.showError("Please enter your name!");
+    else
+      this.props.onStart({
+        name: this.state.name,
+        difficulty: this.state.difficulty,
+      });
   };
 
   handleNameChange = (e) => {
@@ -25,6 +28,11 @@ class Landing extends Component {
 
   handleDifficultyChanged = (difficulty) => {
     this.setState({ difficulty });
+  };
+
+  showError = (message) => {
+    this.setState({ error: message });
+    if (message !== "") setTimeout(() => this.showError(""), 3000);
   };
 
   render() {
@@ -47,6 +55,14 @@ class Landing extends Component {
             value={this.state.name}
             onChange={this.handleNameChange}
           />
+
+          {this.state.error !== "" ? (
+            <div className="mt-3">
+              <b>Please enter your name!</b>
+            </div>
+          ) : (
+            ""
+          )}
 
           <Difficulty
             defaultDifficulty={this.state.difficulty}
