@@ -44,6 +44,12 @@
       }
     }
 
+    .txtError {
+      padding: 0.3em;
+      background-color: white;
+      border-radius: $default-border-radius;
+    }
+
     .wrap-difficulty {
       display: flex;
       margin: 1em 0;

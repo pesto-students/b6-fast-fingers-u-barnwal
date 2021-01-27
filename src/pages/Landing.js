@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import "./css/landing.css";
 import Difficulty from "../components/Difficulty";
 
+import { SlideDown } from "react-slidedown";
+import "react-slidedown/lib/slidedown.css";
+
 // + Image
 import imgLogo from "./../images/logo.svg";
 import imgPlay from "./../images/icons/play.png";
@@ -56,13 +59,15 @@ class Landing extends Component {
             onChange={this.handleNameChange}
           />
 
-          {this.state.error !== "" ? (
-            <div className="mt-3">
-              <b>Please enter your name!</b>
-            </div>
-          ) : (
-            ""
-          )}
+          <SlideDown className={"my-dropdown-slideup"}>
+            {this.state.error !== "" ? (
+              <div className="txtError mt-3">
+                <b>Please enter your name!</b>
+              </div>
+            ) : (
+              ""
+            )}
+          </SlideDown>
 
           <Difficulty
             defaultDifficulty={this.state.difficulty}

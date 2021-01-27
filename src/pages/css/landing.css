@@ -67,6 +67,12 @@
   color: #032228;
 }
 
+.landing .wrap-inputs .txtError {
+  padding: 0.3em;
+  background-color: white;
+  border-radius: 5px;
+}
+
 .landing .wrap-inputs .wrap-difficulty {
   display: -webkit-box;
   display: -ms-flexbox;
