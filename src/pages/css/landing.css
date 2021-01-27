@@ -24,7 +24,12 @@
   height: 100px;
 }
 
+.landing h1 {
+  margin-top: 0.5em;
+}
+
 .landing .labeled-hr {
+  margin-top: 1em;
   margin-bottom: 2em;
 }
 

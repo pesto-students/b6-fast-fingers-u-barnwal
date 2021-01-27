@@ -5,8 +5,8 @@ import Game from "./pages/Game";
 function App() {
   return (
     <main>
-      {/* <Landing></Landing> */}
-      <Game></Game>
+      <Landing></Landing>
+      {/* <Game></Game> */}
     </main>
   );
 }
