@@ -1,9 +1,9 @@
-import React from "react";
+import React, { Component } from "react";
 import imgMan from "./../images/icons/man.png";
 import imgTeen from "./../images/icons/teen.png";
 import imgToddler from "./../images/icons/toddler.png";
 
-function DifficultyBox({ type, active = false }) {
+function DifficultyBox({ type, active = false, onClick = null }) {
   let getClasses = () => {
     return type + (active ? " active" : "");
   };
@@ -26,7 +26,7 @@ function DifficultyBox({ type, active = false }) {
   };
 
   return (
-    <div className={getClasses()}>
+    <div onClick={onClick} className={getClasses()}>
       <img src={getImage()} alt="" />
       <br />
       <span>{getLabel()}</span>
@@ -34,16 +34,51 @@ function DifficultyBox({ type, active = false }) {
   );
 }
 
-function Difficulty() {
-  return (
-    <div className="wrap-difficulty">
-      <DifficultyBox type="easy" active="true" />
+class Difficulty extends Component {
+  state = {
+    selectedType: "easy",
+  };
 
-      <DifficultyBox type="medium" />
+  handleDifficultySelect = (selectedType) => {
+    this.setState({ selectedType });
+  };
 
-      <DifficultyBox type="hard" />
-    </div>
-  );
+  render() {
+    const { selectedType } = this.state;
+    return (
+      <div className="wrap-difficulty">
+        <DifficultyBox
+          onClick={() => this.handleDifficultySelect("easy")}
+          type="easy"
+          active={selectedType === "easy"}
+        />
+        <DifficultyBox
+          onClick={() => this.handleDifficultySelect("medium")}
+          type="medium"
+          active={selectedType === "medium"}
+        />
+        <DifficultyBox
+          onClick={() => this.handleDifficultySelect("hard")}
+          type="hard"
+          active={selectedType === "hard"}
+        />
+      </div>
+    );
+  }
 }
 
 export default Difficulty;
+
+// function Difficulty() {
+//   return (
+//     <div className="wrap-difficulty">
+//       <DifficultyBox type="easy" active="true" />
+
+//       <DifficultyBox type="medium" />
+
+//       <DifficultyBox type="hard" />
+//     </div>
+//   );
+// }
+
+// export default Difficulty;

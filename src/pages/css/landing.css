@@ -96,7 +96,6 @@
 }
 
 .landing .wrap-inputs .wrap-difficulty div:hover {
-  background-color: #97a4a7;
   -webkit-transform: scale(0.9);
           transform: scale(0.9);
 }
