@@ -13,6 +13,23 @@
   background-color: rgba(255, 255, 255, 0.2);
 }
 
+@media (max-width: 768px) {
+  .game .nav {
+    display: block;
+    text-align: center;
+  }
+  .game .nav * {
+    display: inline-block;
+  }
+  .game .nav .btn-end {
+    margin: auto !important;
+    width: 200px;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+}
+
 .game .nav .logo {
   height: 25px;
   margin-right: 1em;

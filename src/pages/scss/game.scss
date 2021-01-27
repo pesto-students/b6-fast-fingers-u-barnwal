@@ -9,6 +9,21 @@
     padding: 1em;
     background-color: rgba($color: white, $alpha: 0.2);
 
+    @media (max-width: 768px) {
+      display: block;
+      text-align: center;
+
+      * {
+        display: inline-block;
+      }
+
+      .btn-end {
+        margin: auto !important;
+        width: 200px;
+        justify-content: center;
+      }
+    }
+
     .logo {
       height: 25px;
       margin-right: 1em;

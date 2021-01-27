@@ -22,8 +22,14 @@ class Game extends Component {
 
           <div className="flex-fill"></div>
 
+          <br />
+          <br />
+
           <img className="ic" src={icUser} alt="" />
           <h6>{this.props.user.name}</h6>
+
+          <br />
+          <br />
 
           <div className="btn-end" onClick={this.props.onEnd}>
             <img className="ic" src={icCross} alt="" />
@@ -84,7 +90,7 @@ class Game extends Component {
                 </div>
               </div>
               <br />
-              <DifficultyBox type={this.props.user.difficulty} />
+              <DifficultyBox type={this.props.user.difficulty} active="true" />
             </div>
           </div>
         </div>

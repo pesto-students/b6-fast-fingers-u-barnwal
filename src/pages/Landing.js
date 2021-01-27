@@ -41,7 +41,7 @@ class Landing extends Component {
 
   render() {
     return (
-      <div className="landing">
+      <div className="container-fluid landing">
         <img src={imgLogo} alt="" />
 
         <h1>Fast Fingers</h1>
