@@ -8,9 +8,7 @@ const MIN_TIME_COUNTER = 2;
 
 class WordCounter extends Component {
   state = {
-    letters: this.props.word.split("").map((c, i) => {
-      return { name: c, key: i, active: false, state: "" };
-    }),
+    letters: [],
     tick: 0,
     max: 0,
   };
@@ -18,12 +16,17 @@ class WordCounter extends Component {
   timer = null;
 
   componentDidMount() {
+    let letters = this.props.word.split("").map((c, i) => {
+      return { name: c, key: i, active: false, state: "" };
+    });
+
     let tick = Math.max(
-      Math.ceil(this.state.letters.length / this.props.factor),
+      Math.ceil(letters.length / this.props.factor),
       MIN_TIME_COUNTER
     );
 
     this.setState({
+      letters,
       tick,
       max: tick,
     });

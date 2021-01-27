@@ -1,5 +1,9 @@
 import React, { Component } from "react";
 import { DifficultyBox } from "../components/Difficulty";
+import WordCounter from "../components/WordCounter";
+import easy from "./../data/easy.json";
+import medium from "./../data/medium.json";
+import hard from "./../data/hard.json";
 
 // + Styles
 import "./css/landing.css";
@@ -9,11 +13,38 @@ import "./css/game.css";
 import imgLogo from "./../images/logo.svg";
 import icUser from "./../images/icons/person.png";
 import icCross from "./../images/icons/cross.png";
-import WordCounter from "../components/WordCounter";
 
 class Game extends Component {
+  state = {
+    dictionary: [],
+  };
+
+  prepareDictionary = (difficulty) => {
+    switch (difficulty.key) {
+      case "easy":
+        this.setState({ dictionary: easy });
+        break;
+      case "medium":
+        this.setState({ dictionary: medium });
+        break;
+      case "hard":
+        this.setState({ dictionary: hard });
+        break;
+      default:
+    }
+  };
+
+  getRandomWord = () =>
+    this.state.dictionary[
+      Math.floor(Math.random() * this.state.dictionary.length)
+    ];
+
+  componentDidMount() {
+    this.prepareDictionary(this.props.difficulty);
+  }
+
   render() {
-    console.log("Game", this.props);
+    console.log("Game", this.state);
 
     return (
       <div className="game">
@@ -43,7 +74,14 @@ class Game extends Component {
         <div className="container-fluid">
           <div className="row">
             <div className="col-md-8 my-4 my-md-0 order-md-12">
-              <WordCounter word="test" factor={this.props.difficulty.factor} />
+              {this.state.dictionary.length > 0 ? (
+                <WordCounter
+                  word={this.getRandomWord()}
+                  factor={this.props.difficulty.factor}
+                />
+              ) : (
+                ""
+              )}
             </div>
 
             <div className="col-md-4 my-4 my-md-0">
