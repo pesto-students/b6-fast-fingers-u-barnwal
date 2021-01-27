@@ -13,7 +13,7 @@ import imgPlay from "./../images/icons/play.png";
 class Landing extends Component {
   state = {
     name: "",
-    difficulty: "easy",
+    difficulty: {},
     error: "",
   };
 
@@ -40,6 +40,8 @@ class Landing extends Component {
   };
 
   render() {
+    console.log("Landing:", this.state);
+
     return (
       <div className="container-fluid landing">
         <img src={imgLogo} alt="" />
@@ -70,10 +72,7 @@ class Landing extends Component {
             )}
           </SlideDown>
 
-          <Difficulty
-            defaultDifficulty={this.state.difficulty}
-            onDifficultyChanged={this.handleDifficultyChanged}
-          />
+          <Difficulty onDifficultyChanged={this.handleDifficultyChanged} />
         </div>
 
         <div onClick={this.handleStartGame} className="btn-play">

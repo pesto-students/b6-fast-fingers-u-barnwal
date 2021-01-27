@@ -11,7 +11,8 @@ class WordCounter extends Component {
   };
 
   render() {
-    console.log(this.state);
+    console.log("WordCounter", this.state);
+
     return (
       <div className="wrap-counter">
         <div className="counter">

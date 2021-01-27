@@ -5,17 +5,31 @@ import imgMan from "./../images/icons/man.png";
 import imgTeen from "./../images/icons/teen.png";
 import imgToddler from "./../images/icons/toddler.png";
 
-function DifficultyBox({ type, active = false, onClick = null }) {
-  let getClasses = () => {
-    return "box-difficulty " + type + (active ? " active" : "");
-  };
+const difficulties = {
+  easy: {
+    key: "easy",
+    label: "Easy",
+    factor: 1,
+  },
+  medium: {
+    key: "medium",
+    label: "Medium",
+    factor: 1.5,
+  },
+  hard: {
+    key: "hard",
+    label: "Hard",
+    factor: 2,
+  },
+};
 
-  let getLabel = () => {
-    return type.toUpperCase();
+function DifficultyBox({ difficulty, active = false, onClick = null }) {
+  let getClasses = () => {
+    return "box-difficulty " + difficulty.key + (active ? " active" : "");
   };
 
   let getImage = () => {
-    switch (type) {
+    switch (difficulty.key) {
       case "easy":
         return imgToddler;
       case "medium":
@@ -28,42 +42,42 @@ function DifficultyBox({ type, active = false, onClick = null }) {
   };
 
   return (
-    <div onClick={onClick} className={getClasses()}>
+    <div onClick={() => onClick(difficulty)} className={getClasses()}>
       <img src={getImage()} alt="" />
       <br />
-      <span>{getLabel()}</span>
+      <span>{difficulty.label}</span>
     </div>
   );
 }
 
 class Difficulty extends Component {
   state = {
-    selectedType: this.props.defaultDifficulty,
+    selected: difficulties.easy,
   };
 
-  handleDifficultySelect = (selectedType) => {
-    this.setState({ selectedType });
-    this.props.onDifficultyChanged(selectedType);
+  handleDifficultySelect = (selected) => {
+    this.setState({ selected });
+    this.props.onDifficultyChanged(selected);
   };
 
   render() {
-    const { selectedType } = this.state;
+    const { selected } = this.state;
     return (
       <div className="wrap-difficulty">
         <DifficultyBox
-          type="easy"
-          active={selectedType === "easy"}
-          onClick={() => this.handleDifficultySelect("easy")}
+          difficulty={difficulties.easy}
+          active={selected.key === "easy"}
+          onClick={this.handleDifficultySelect}
         />
         <DifficultyBox
-          type="medium"
-          active={selectedType === "medium"}
-          onClick={() => this.handleDifficultySelect("medium")}
+          difficulty={difficulties.medium}
+          active={selected.key === "medium"}
+          onClick={this.handleDifficultySelect}
         />
         <DifficultyBox
-          type="hard"
-          active={selectedType === "hard"}
-          onClick={() => this.handleDifficultySelect("hard")}
+          difficulty={difficulties.hard}
+          active={selected.key === "hard"}
+          onClick={this.handleDifficultySelect}
         />
       </div>
     );

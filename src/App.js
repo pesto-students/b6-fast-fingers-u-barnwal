@@ -4,9 +4,9 @@ import Game from "./pages/Game";
 
 class App extends Component {
   state = {
-    gameStarted: true,
+    gameStarted: false,
     name: "",
-    difficulty: "",
+    difficulty: {},
   };
 
   handleGameStart = ({ name, difficulty }) => {
@@ -18,6 +18,8 @@ class App extends Component {
   };
 
   render() {
+    console.log("App:", this.state);
+
     return (
       <main>
         {this.state.gameStarted ? (

@@ -78,7 +78,10 @@ class Game extends Component {
                 </div>
               </div>
               <br />
-              <DifficultyBox type={this.props.user.difficulty} active="true" />
+              <DifficultyBox
+                difficulty={this.props.user.difficulty}
+                active="true"
+              />
             </div>
           </div>
         </div>
