@@ -245,11 +245,18 @@ class Game extends Component {
                 </div>
               </div>
               <br />
-              <h4>
-                <b>Score:</b> {this.getScoreAsDuration(score)}
+              <h4 className="text-center">
+                <b>Score: {this.getScoreAsDuration(score)}</b>
               </h4>
               <br />
               <DifficultyBox difficulty={this.state.difficulty} active="true" />
+              <br />
+              <h6>
+                <b>
+                  <span role="img">ℹ️</span> &nbsp; Press <kbd>SPACE</kbd> to
+                  pause!
+                </b>
+              </h6>
             </div>
           </div>
         </div>

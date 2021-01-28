@@ -302,7 +302,7 @@
           flex-direction: column;
 }
 
-.game .pause kbd {
-  background-color: #f04f53;
+kbd {
+  background-color: #f04f53 !important;
   margin: 0 10px;
 }

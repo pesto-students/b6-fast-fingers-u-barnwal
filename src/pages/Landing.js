@@ -69,6 +69,7 @@ class Landing extends Component {
             placeholder="Type your name..."
             value={this.state.name}
             onChange={this.handleNameChange}
+            autoFocus
           />
 
           <SlideDown className={"my-dropdown-slideup"}>

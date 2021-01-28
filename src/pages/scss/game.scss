@@ -266,10 +266,10 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-
-    kbd {
-      background-color: $color-primary;
-      margin: 0 10px;
-    }
   }
+}
+
+kbd {
+  background-color: $color-primary !important;
+  margin: 0 10px;
 }
