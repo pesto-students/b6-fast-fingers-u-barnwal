@@ -180,14 +180,12 @@ class Game extends Component {
                           <td>{this.getScoreAsDuration(s)} </td>
                         </tr>
                       ))}
-                      {scores.length <= 0 ? (
+                      {scores.length <= 0 && (
                         <tr>
                           <td className="text-center" colSpan="3">
                             No games played yet!
                           </td>
                         </tr>
-                      ) : (
-                        ""
                       )}
                     </tbody>
                   </table>
