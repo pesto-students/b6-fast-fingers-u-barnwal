@@ -92,6 +92,10 @@ class WordCounter extends Component {
     }
   }
 
+  componentWillUnmount() {
+    clearInterval(this.timer);
+  }
+
   render() {
     console.log("WordCounter", this.state);
 
@@ -120,6 +124,7 @@ class WordCounter extends Component {
           type="text"
           value={this.state.text}
           onChange={this.handleTextChanged}
+          autoFocus
         />
       </div>
     );

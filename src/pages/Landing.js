@@ -17,6 +17,8 @@ class Landing extends Component {
     error: "",
   };
 
+  timeout = null;
+
   handleStartGame = () => {
     if (this.state.name === "") this.showError("Please enter your name!");
     else if (!this.state.difficulty.hasOwnProperty("key"))
@@ -38,8 +40,13 @@ class Landing extends Component {
 
   showError = (message) => {
     this.setState({ error: message });
-    if (message !== "") setTimeout(() => this.showError(""), 3000);
+    if (message !== "")
+      this.timeout = setTimeout(() => this.showError(""), 3000);
   };
+
+  componentWillUnmount() {
+    clearTimeout(this.timeout);
+  }
 
   render() {
     console.log("Landing:", this.state);
