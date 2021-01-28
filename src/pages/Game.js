@@ -39,15 +39,12 @@ class Game extends Component {
   prepareDictionary = (difficulty) => {
     switch (difficulty.key) {
       case "easy":
-        console.log("----------------------------easy dictionary");
         this.setState({ dictionary: easy });
         break;
       case "medium":
-        console.log("----------------------------medium dictionary");
         this.setState({ dictionary: medium });
         break;
       case "hard":
-        console.log("----------------------------hard dictionary");
         this.setState({ dictionary: hard });
         break;
       default:
@@ -150,7 +147,7 @@ class Game extends Component {
   render() {
     // console.log("Game", this.state);
 
-    const { gameMode, score, scores } = this.state;
+    const { gameMode, score, scores, paused } = this.state;
     const maxScore = Math.max.apply(Math, scores);
 
     return (
@@ -183,7 +180,7 @@ class Game extends Component {
             <div className="col-md-8 my-4 my-md-0 order-md-12">
               {gameMode && this.state.dictionary.length > 0 ? (
                 <WordCounter
-                  paused={this.state.paused}
+                  paused={paused}
                   word={this.getRandomWord()}
                   factor={this.state.difficulty.factor + this.state.levelFactor}
                   onWordStart={this.handleWordStarted}
@@ -261,7 +258,7 @@ class Game extends Component {
           </div>
         </div>
 
-        {this.state.paused && (
+        {paused && (
           <div className="pause">
             <img src={imgGame} alt="" />
             <br />
