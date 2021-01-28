@@ -20,6 +20,7 @@ class Game extends Component {
   state = {
     dictionary: [],
     levelFactor: 0,
+    gameMode: true,
   };
 
   prepareDictionary = (difficulty) => {
@@ -87,7 +88,7 @@ class Game extends Component {
         <div className="container-fluid">
           <div className="row">
             <div className="col-md-8 my-4 my-md-0 order-md-12">
-              {this.state.dictionary.length > 0 ? (
+              {this.state.gameMode && this.state.dictionary.length > 0 ? (
                 <WordCounter
                   word={this.getRandomWord()}
                   factor={this.props.difficulty.factor + this.state.levelFactor}
@@ -97,6 +98,7 @@ class Game extends Component {
               ) : (
                 ""
               )}
+              {!this.state.gameMode ? <div></div> : ""}
             </div>
 
             <div className="col-md-4 my-4 my-md-0">

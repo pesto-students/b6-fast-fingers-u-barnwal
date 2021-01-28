@@ -215,11 +215,11 @@
 }
 
 .game .wrap-counter .word span.true {
-  color: green;
+  color: #52b616;
 }
 
 .game .wrap-counter .word span.false {
-  color: cornflowerblue;
+  color: #35467f;
 }
 
 .game .wrap-counter .word span.active {
