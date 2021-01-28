@@ -19,6 +19,9 @@ class WordCounter extends Component {
   handleTextChanged = (e) => {
     let text = e.target.value;
 
+    // ? is game paused
+    if (this.props.paused) return;
+
     // * cannot delete anything
     if (text.length < this.state.text.length) return;
 
@@ -44,6 +47,18 @@ class WordCounter extends Component {
       this.setState({
         letters: this.state.letters,
       });
+    }
+  };
+
+  handleTextKeyUp = (e) => {
+    if (e.key === " ") {
+      if (this.props.paused) {
+        this.props.onUnpause();
+        this.startTimerTick();
+      } else {
+        this.props.onPause();
+        clearInterval(this.timer);
+      }
     }
   };
 
@@ -76,11 +91,15 @@ class WordCounter extends Component {
       text: "",
     });
 
+    this.startTimerTick();
+  }
+
+  startTimerTick = () => {
     this.timer = setInterval(() => {
       if (this.state.tick <= 0) this.handleCounterEnd();
       else this.setState({ tick: this.state.tick - 1 });
     }, 1000);
-  }
+  };
 
   componentDidMount() {
     this.initialize();
@@ -126,6 +145,7 @@ class WordCounter extends Component {
           type="text"
           value={this.state.text}
           onChange={this.handleTextChanged}
+          onKeyUp={this.handleTextKeyUp}
           autoFocus
         />
       </div>

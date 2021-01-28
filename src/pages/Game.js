@@ -14,6 +14,7 @@ import imgLogo from "./../images/logo.svg";
 import icUser from "./../images/icons/person.png";
 import icCross from "./../images/icons/cross.png";
 import imgReload from "./../images/icons/reload.png";
+import imgGame from "./../images/icons/gamepad.png";
 
 const DIFFICULTY_FACTOR_INCREMENT = 0.01;
 
@@ -25,6 +26,7 @@ class Game extends Component {
     score: 0,
     scores: [],
     difficulty: {},
+    paused: false,
   };
 
   interval = null;
@@ -114,6 +116,16 @@ class Game extends Component {
     this.setState({ gameMode: true });
   };
 
+  handleGamePause = () => {
+    clearInterval(this.interval);
+    this.setState({ paused: true });
+  };
+
+  handleGameUnpause = () => {
+    this.startScore();
+    this.setState({ paused: false });
+  };
+
   handleWordStarted = () => {
     this.resetScore();
     this.startScore();
@@ -171,11 +183,14 @@ class Game extends Component {
             <div className="col-md-8 my-4 my-md-0 order-md-12">
               {gameMode && this.state.dictionary.length > 0 ? (
                 <WordCounter
+                  paused={this.state.paused}
                   word={this.getRandomWord()}
                   factor={this.state.difficulty.factor + this.state.levelFactor}
                   onWordStart={this.handleWordStarted}
                   onWordComplete={this.handleWordCompleted}
                   onCounterEnd={this.handleCounterEnd}
+                  onPause={this.handleGamePause}
+                  onUnpause={this.handleGameUnpause}
                 />
               ) : (
                 ""
@@ -238,6 +253,23 @@ class Game extends Component {
             </div>
           </div>
         </div>
+
+        {this.state.paused && (
+          <div className="pause">
+            <img src={imgGame} alt="" />
+            <br />
+            <br />
+            <h3>
+              <b>Game Paused</b>
+            </h3>
+            <br />
+            <h6>
+              <b>
+                Press <kbd>SPACE</kbd> to unpause!
+              </b>
+            </h6>
+          </div>
+        )}
       </div>
     );
   }
