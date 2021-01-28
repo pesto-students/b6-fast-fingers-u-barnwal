@@ -49,7 +49,7 @@ class Landing extends Component {
   }
 
   render() {
-    console.log("Landing:", this.state);
+    // console.log("Landing:", this.state);
 
     return (
       <div className="container-fluid landing">

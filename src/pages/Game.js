@@ -24,19 +24,28 @@ class Game extends Component {
     gameMode: true,
     score: 0,
     scores: [],
+    difficulty: {},
   };
 
   interval = null;
 
+  constructor(props) {
+    super(props);
+    this.state.difficulty = this.props.difficulty;
+  }
+
   prepareDictionary = (difficulty) => {
     switch (difficulty.key) {
       case "easy":
+        console.log("----------------------------easy dictionary");
         this.setState({ dictionary: easy });
         break;
       case "medium":
+        console.log("----------------------------medium dictionary");
         this.setState({ dictionary: medium });
         break;
       case "hard":
+        console.log("----------------------------hard dictionary");
         this.setState({ dictionary: hard });
         break;
       default:
@@ -70,6 +79,37 @@ class Game extends Component {
     clearInterval(this.interval);
   };
 
+  incrementDifficultyFactor = () => {
+    this.setState({
+      levelFactor: this.state.levelFactor + DIFFICULTY_FACTOR_INCREMENT,
+    });
+
+    let easyTotalFactor =
+      this.props.difficulties.easy.factor + this.state.levelFactor;
+
+    switch (this.state.difficulty.key) {
+      case "easy":
+        if (easyTotalFactor >= this.props.difficulties.medium.factor) {
+          this.setState({
+            difficulty: this.props.difficulties.medium,
+          });
+          this.prepareDictionary(this.props.difficulties.medium);
+        }
+
+        break;
+      case "medium":
+        if (easyTotalFactor >= this.props.difficulties.hard.factor) {
+          this.setState({
+            difficulty: this.props.difficulties.hard,
+          });
+          this.prepareDictionary(this.props.difficulties.hard);
+        }
+        break;
+      case "hard":
+      default:
+    }
+  };
+
   handleRestartGame = () => {
     this.setState({ gameMode: true });
   };
@@ -80,9 +120,7 @@ class Game extends Component {
   };
 
   handleWordCompleted = () => {
-    this.setState({
-      levelFactor: this.state.levelFactor + DIFFICULTY_FACTOR_INCREMENT,
-    });
+    this.incrementDifficultyFactor();
   };
 
   handleCounterEnd = () => {
@@ -94,11 +132,11 @@ class Game extends Component {
   };
 
   componentDidMount() {
-    this.prepareDictionary(this.props.difficulty);
+    this.prepareDictionary(this.state.difficulty);
   }
 
   render() {
-    console.log("Game", this.state);
+    // console.log("Game", this.state);
 
     const { gameMode, score, scores } = this.state;
     const maxScore = Math.max.apply(Math, scores);
@@ -134,7 +172,7 @@ class Game extends Component {
               {gameMode && this.state.dictionary.length > 0 ? (
                 <WordCounter
                   word={this.getRandomWord()}
-                  factor={this.props.difficulty.factor + this.state.levelFactor}
+                  factor={this.state.difficulty.factor + this.state.levelFactor}
                   onWordStart={this.handleWordStarted}
                   onWordComplete={this.handleWordCompleted}
                   onCounterEnd={this.handleCounterEnd}
@@ -196,7 +234,7 @@ class Game extends Component {
                 <b>Score:</b> {this.getScoreAsDuration(score)}
               </h4>
               <br />
-              <DifficultyBox difficulty={this.props.difficulty} active="true" />
+              <DifficultyBox difficulty={this.state.difficulty} active="true" />
             </div>
           </div>
         </div>

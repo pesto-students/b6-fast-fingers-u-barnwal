@@ -36,7 +36,7 @@ class App extends Component {
   };
 
   render() {
-    console.log("App:", this.state);
+    // console.log("App:", this.state);
 
     return (
       <main>
@@ -45,6 +45,7 @@ class App extends Component {
             user={{ name: this.state.name }}
             difficulty={this.state.difficulty}
             onEnd={this.handleGameEnd}
+            difficulties={difficulties}
           />
         ) : (
           <Landing onStart={this.handleGameStart} difficulties={difficulties} />
