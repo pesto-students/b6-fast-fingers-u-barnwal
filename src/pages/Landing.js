@@ -81,7 +81,10 @@ class Landing extends Component {
             )}
           </SlideDown>
 
-          <Difficulty onDifficultyChanged={this.handleDifficultyChanged} />
+          <Difficulty
+            onDifficultyChanged={this.handleDifficultyChanged}
+            difficulties={this.props.difficulties}
+          />
         </div>
 
         <div onClick={this.handleStartGame} className="btn-play">

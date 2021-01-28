@@ -5,24 +5,6 @@ import imgMan from "./../images/icons/man.png";
 import imgTeen from "./../images/icons/teen.png";
 import imgToddler from "./../images/icons/toddler.png";
 
-const difficulties = {
-  easy: {
-    key: "easy",
-    label: "Easy",
-    factor: 1,
-  },
-  medium: {
-    key: "medium",
-    label: "Medium",
-    factor: 1.5,
-  },
-  hard: {
-    key: "hard",
-    label: "Hard",
-    factor: 2,
-  },
-};
-
 function DifficultyBox({ difficulty, active = false, onClick = () => {} }) {
   let getClasses = () => {
     return "box-difficulty " + difficulty.key + (active ? " active" : "");
@@ -66,17 +48,17 @@ class Difficulty extends Component {
     return (
       <div className="wrap-difficulty">
         <DifficultyBox
-          difficulty={difficulties.easy}
+          difficulty={this.props.difficulties.easy}
           active={selected.key === "easy"}
           onClick={this.handleDifficultySelect}
         />
         <DifficultyBox
-          difficulty={difficulties.medium}
+          difficulty={this.props.difficulties.medium}
           active={selected.key === "medium"}
           onClick={this.handleDifficultySelect}
         />
         <DifficultyBox
-          difficulty={difficulties.hard}
+          difficulty={this.props.difficulties.hard}
           active={selected.key === "hard"}
           onClick={this.handleDifficultySelect}
         />
