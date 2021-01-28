@@ -13,6 +13,7 @@ import "./css/game.css";
 import imgLogo from "./../images/logo.svg";
 import icUser from "./../images/icons/person.png";
 import icCross from "./../images/icons/cross.png";
+import imgReload from "./../images/icons/reload.png";
 
 const DIFFICULTY_FACTOR_INCREMENT = 0.01;
 
@@ -98,7 +99,21 @@ class Game extends Component {
               ) : (
                 ""
               )}
-              {!this.state.gameMode ? <div></div> : ""}
+              {!this.state.gameMode ? (
+                <div className="wrap-game-over best">
+                  <h2 className="title">Game Over!</h2>
+                  <br />
+                  <h4>You scored</h4>
+                  <h3>00 : 00</h3>
+                  <br />
+                  <div onClick={this.handleStartGame} className="btn-play">
+                    <img src={imgReload} alt="" />
+                    <span>Play Again</span>
+                  </div>
+                </div>
+              ) : (
+                ""
+              )}
             </div>
 
             <div className="col-md-4 my-4 my-md-0">

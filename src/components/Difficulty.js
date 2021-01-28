@@ -23,7 +23,7 @@ const difficulties = {
   },
 };
 
-function DifficultyBox({ difficulty, active = false, onClick = null }) {
+function DifficultyBox({ difficulty, active = false, onClick = () => {} }) {
   let getClasses = () => {
     return "box-difficulty " + difficulty.key + (active ? " active" : "");
   };
