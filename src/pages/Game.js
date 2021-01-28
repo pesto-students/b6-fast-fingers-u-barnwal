@@ -100,6 +100,9 @@ class Game extends Component {
   render() {
     console.log("Game", this.state);
 
+    const { gameMode, score, scores } = this.state;
+    const maxScore = Math.max.apply(Math, scores);
+
     return (
       <div className="game">
         <div className="nav">
@@ -128,7 +131,7 @@ class Game extends Component {
         <div className="container-fluid">
           <div className="row">
             <div className="col-md-8 my-4 my-md-0 order-md-12">
-              {this.state.gameMode && this.state.dictionary.length > 0 ? (
+              {gameMode && this.state.dictionary.length > 0 ? (
                 <WordCounter
                   word={this.getRandomWord()}
                   factor={this.props.difficulty.factor + this.state.levelFactor}
@@ -139,16 +142,17 @@ class Game extends Component {
               ) : (
                 ""
               )}
-              {!this.state.gameMode ? (
-                <div className="wrap-game-over best">
+              {!gameMode ? (
+                <div
+                  className={
+                    "wrap-game-over" +
+                    (scores[scores.length - 1] === maxScore ? " best" : "")
+                  }
+                >
                   <h2 className="title">Game Over!</h2>
                   <br />
                   <h4>You scored</h4>
-                  <h3>
-                    {this.getScoreAsDuration(
-                      this.state.scores[this.state.scores.length - 1]
-                    )}
-                  </h3>
+                  <h3>{this.getScoreAsDuration(scores[scores.length - 1])}</h3>
                   <br />
                   <div onClick={this.handleRestartGame} className="btn-play">
                     <img src={imgReload} alt="" />
@@ -166,20 +170,32 @@ class Game extends Component {
                 <div className="body">
                   <table>
                     <tbody>
-                      {this.state.scores.map((s, index) => (
-                        <tr>
+                      {scores.map((s, index) => (
+                        <tr
+                          key={"game" + index}
+                          className={s === maxScore ? "best" : ""}
+                        >
                           <th>Game {index + 1}</th>
                           <th>:</th>
                           <td>{this.getScoreAsDuration(s)} </td>
                         </tr>
                       ))}
+                      {scores.length <= 0 ? (
+                        <tr>
+                          <td className="text-center" colSpan="3">
+                            No games played yet!
+                          </td>
+                        </tr>
+                      ) : (
+                        ""
+                      )}
                     </tbody>
                   </table>
                 </div>
               </div>
               <br />
               <h4>
-                <b>Score:</b> {this.getScoreAsDuration(this.state.score)}
+                <b>Score:</b> {this.getScoreAsDuration(score)}
               </h4>
               <br />
               <DifficultyBox difficulty={this.props.difficulty} active="true" />
