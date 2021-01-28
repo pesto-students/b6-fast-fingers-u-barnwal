@@ -12,7 +12,6 @@ class WordCounter extends Component {
     tick: 0,
     max: 0,
     text: "",
-    // index: 0,
   };
 
   timer = null;
@@ -45,6 +44,9 @@ class WordCounter extends Component {
     // * cannot delete anything
     if (text.length < this.state.text.length) return;
 
+    // * not accepting anything if the word is already complete
+    if (text.length > this.state.letters.length) return;
+
     let index = text.length - 1;
 
     if (text[index].toLowerCase() === this.state.letters[index].name) {
@@ -55,6 +57,8 @@ class WordCounter extends Component {
         text: e.target.value,
         letters: this.state.letters,
       });
+
+      if (text.length === this.state.letters.length) this.handleWordComplete();
     } else {
       let letter = this.state.letters[index];
       letter.state = false;
@@ -65,10 +69,16 @@ class WordCounter extends Component {
     }
   };
 
-  handleWordCompleted = () => {};
+  handleWordComplete = () => {
+    clearInterval(this.timer);
+
+    this.props.onWordComplete();
+  };
 
   handleCounterEnd = () => {
     clearInterval(this.timer);
+
+    this.props.onCounterEnd();
   };
 
   render() {

@@ -14,9 +14,12 @@ import imgLogo from "./../images/logo.svg";
 import icUser from "./../images/icons/person.png";
 import icCross from "./../images/icons/cross.png";
 
+const DIFFICULTY_FACTOR_INCREMENT = 0.01;
+
 class Game extends Component {
   state = {
     dictionary: [],
+    levelFactor: 0,
   };
 
   prepareDictionary = (difficulty) => {
@@ -38,6 +41,16 @@ class Game extends Component {
     this.state.dictionary[
       Math.floor(Math.random() * this.state.dictionary.length)
     ];
+
+  handleWordCompleted = () => {
+    this.setState({
+      levelFactor: this.state.levelFactor + DIFFICULTY_FACTOR_INCREMENT,
+    });
+  };
+
+  handleCounterEnd = () => {
+    clearInterval(this.timer);
+  };
 
   componentDidMount() {
     this.prepareDictionary(this.props.difficulty);
@@ -77,7 +90,9 @@ class Game extends Component {
               {this.state.dictionary.length > 0 ? (
                 <WordCounter
                   word={this.getRandomWord()}
-                  factor={this.props.difficulty.factor}
+                  factor={this.props.difficulty.factor + this.state.levelFactor}
+                  onWordComplete={this.handleWordCompleted}
+                  onCounterEnd={this.handleCounterEnd}
                 />
               ) : (
                 ""
