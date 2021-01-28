@@ -84,6 +84,8 @@ class WordCounter extends Component {
 
   componentDidMount() {
     this.initialize();
+
+    this.props.onWordStart();
   }
 
   componentDidUpdate(prevProps) {

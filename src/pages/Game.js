@@ -22,7 +22,11 @@ class Game extends Component {
     dictionary: [],
     levelFactor: 0,
     gameMode: true,
+    score: 0,
+    scores: [],
   };
+
+  interval = null;
 
   prepareDictionary = (difficulty) => {
     switch (difficulty.key) {
@@ -44,6 +48,37 @@ class Game extends Component {
       Math.floor(Math.random() * this.state.dictionary.length)
     ];
 
+  getScoreAsDuration = (score) => {
+    let minutes = Math.floor(score / 60);
+    let seconds = Math.floor(score % 60);
+
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    seconds = seconds < 10 ? "0" + seconds : seconds;
+
+    return minutes + " : " + seconds;
+  };
+
+  startScore = () => {
+    this.interval = setInterval(
+      () => this.setState({ score: this.state.score + 1 }),
+      1000
+    );
+  };
+
+  resetScore = () => {
+    this.setState({ score: 0 });
+    clearInterval(this.interval);
+  };
+
+  handleRestartGame = () => {
+    this.setState({ gameMode: true });
+  };
+
+  handleWordStarted = () => {
+    this.resetScore();
+    this.startScore();
+  };
+
   handleWordCompleted = () => {
     this.setState({
       levelFactor: this.state.levelFactor + DIFFICULTY_FACTOR_INCREMENT,
@@ -51,7 +86,11 @@ class Game extends Component {
   };
 
   handleCounterEnd = () => {
-    clearInterval(this.timer);
+    let scores = this.state.scores;
+    scores.push(this.state.score);
+
+    this.setState({ gameMode: false, scores });
+    this.resetScore();
   };
 
   componentDidMount() {
@@ -93,6 +132,7 @@ class Game extends Component {
                 <WordCounter
                   word={this.getRandomWord()}
                   factor={this.props.difficulty.factor + this.state.levelFactor}
+                  onWordStart={this.handleWordStarted}
                   onWordComplete={this.handleWordCompleted}
                   onCounterEnd={this.handleCounterEnd}
                 />
@@ -104,9 +144,13 @@ class Game extends Component {
                   <h2 className="title">Game Over!</h2>
                   <br />
                   <h4>You scored</h4>
-                  <h3>00 : 00</h3>
+                  <h3>
+                    {this.getScoreAsDuration(
+                      this.state.scores[this.state.scores.length - 1]
+                    )}
+                  </h3>
                   <br />
-                  <div onClick={this.handleStartGame} className="btn-play">
+                  <div onClick={this.handleRestartGame} className="btn-play">
                     <img src={imgReload} alt="" />
                     <span>Play Again</span>
                   </div>
@@ -122,33 +166,21 @@ class Game extends Component {
                 <div className="body">
                   <table>
                     <tbody>
-                      <tr>
-                        <th>Game 1</th>
-                        <th>:</th>
-                        <td>00:00 </td>
-                      </tr>
-
-                      <tr>
-                        <th>Game 2</th>
-                        <th>:</th>
-                        <td>00:00 </td>
-                      </tr>
-
-                      <tr className="best">
-                        <th>Game 3</th>
-                        <th>:</th>
-                        <td>00:00 </td>
-                      </tr>
-
-                      <tr>
-                        <th>Game 4</th>
-                        <th>:</th>
-                        <td>00:00 </td>
-                      </tr>
+                      {this.state.scores.map((s, index) => (
+                        <tr>
+                          <th>Game {index + 1}</th>
+                          <th>:</th>
+                          <td>{this.getScoreAsDuration(s)} </td>
+                        </tr>
+                      ))}
                     </tbody>
                   </table>
                 </div>
               </div>
+              <br />
+              <h4>
+                <b>Score:</b> {this.getScoreAsDuration(this.state.score)}
+              </h4>
               <br />
               <DifficultyBox difficulty={this.props.difficulty} active="true" />
             </div>
