@@ -16,28 +16,6 @@ class WordCounter extends Component {
 
   timer = null;
 
-  componentDidMount() {
-    let letters = this.props.word.split("").map((c, i) => {
-      return { name: c, key: i, active: false, state: "" };
-    });
-
-    let tick = Math.max(
-      Math.ceil(letters.length / this.props.factor),
-      MIN_TIME_COUNTER
-    );
-
-    this.setState({
-      letters,
-      tick,
-      max: tick,
-    });
-
-    this.timer = setInterval(() => {
-      if (this.state.tick <= 0) this.handleCounterEnd();
-      else this.setState({ tick: this.state.tick - 1 });
-    }, 1000);
-  }
-
   handleTextChanged = (e) => {
     let text = e.target.value;
 
@@ -80,6 +58,28 @@ class WordCounter extends Component {
 
     this.props.onCounterEnd();
   };
+
+  componentDidMount() {
+    let letters = this.props.word.split("").map((c, i) => {
+      return { name: c, key: i, active: false, state: "" };
+    });
+
+    let tick = Math.max(
+      Math.ceil(letters.length / this.props.factor),
+      MIN_TIME_COUNTER
+    );
+
+    this.setState({
+      letters,
+      tick,
+      max: tick,
+    });
+
+    this.timer = setInterval(() => {
+      if (this.state.tick <= 0) this.handleCounterEnd();
+      else this.setState({ tick: this.state.tick - 1 });
+    }, 1000);
+  }
 
   render() {
     console.log("WordCounter", this.state);
