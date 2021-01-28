@@ -59,7 +59,7 @@ class WordCounter extends Component {
     this.props.onCounterEnd();
   };
 
-  componentDidMount() {
+  initialize() {
     let letters = this.props.word.split("").map((c, i) => {
       return { name: c, key: i, active: false, state: "" };
     });
@@ -73,12 +73,23 @@ class WordCounter extends Component {
       letters,
       tick,
       max: tick,
+      text: "",
     });
 
     this.timer = setInterval(() => {
       if (this.state.tick <= 0) this.handleCounterEnd();
       else this.setState({ tick: this.state.tick - 1 });
     }, 1000);
+  }
+
+  componentDidMount() {
+    this.initialize();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.factor !== this.props.factor) {
+      this.initialize();
+    }
   }
 
   render() {
