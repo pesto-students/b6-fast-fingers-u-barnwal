@@ -1,5 +1,6 @@
 {
   "name": "fastfingers",
+  "homepage": "https://fastfingers.isolpro.in",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
