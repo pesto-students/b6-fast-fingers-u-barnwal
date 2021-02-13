@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { difficulties } from "../constants";
 
 // + Images
 import imgMan from "./../images/icons/man.png";
@@ -47,21 +48,17 @@ class Difficulty extends Component {
 
     return (
       <div className="wrap-difficulty">
-        <DifficultyBox
-          difficulty={this.props.difficulties.easy}
-          active={selected.key === "easy"}
-          onClick={this.handleDifficultySelect}
-        />
-        <DifficultyBox
-          difficulty={this.props.difficulties.medium}
-          active={selected.key === "medium"}
-          onClick={this.handleDifficultySelect}
-        />
-        <DifficultyBox
-          difficulty={this.props.difficulties.hard}
-          active={selected.key === "hard"}
-          onClick={this.handleDifficultySelect}
-        />
+        {Object.keys(difficulties).map((k) => {
+          const difficulty = difficulties[k];
+          return (
+            <DifficultyBox
+              key={difficulty.key}
+              difficulty={difficulty}
+              active={selected.key === difficulty.key}
+              onClick={this.handleDifficultySelect}
+            />
+          );
+        })}
       </div>
     );
   }

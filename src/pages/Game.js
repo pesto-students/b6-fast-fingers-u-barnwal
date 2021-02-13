@@ -4,6 +4,7 @@ import WordCounter from "../components/WordCounter";
 import easy from "./../data/easy.json";
 import medium from "./../data/medium.json";
 import hard from "./../data/hard.json";
+import { difficulties } from "../constants";
 
 // + Styles
 import "./css/landing.css";
@@ -83,25 +84,24 @@ class Game extends Component {
       levelFactor: this.state.levelFactor + DIFFICULTY_FACTOR_INCREMENT,
     });
 
-    let easyTotalFactor =
-      this.props.difficulties.easy.factor + this.state.levelFactor;
+    let easyTotalFactor = difficulties.easy.factor + this.state.levelFactor;
 
     switch (this.state.difficulty.key) {
       case "easy":
-        if (easyTotalFactor >= this.props.difficulties.medium.factor) {
+        if (easyTotalFactor >= difficulties.medium.factor) {
           this.setState({
-            difficulty: this.props.difficulties.medium,
+            difficulty: difficulties.medium,
           });
-          this.prepareDictionary(this.props.difficulties.medium);
+          this.prepareDictionary(difficulties.medium);
         }
 
         break;
       case "medium":
-        if (easyTotalFactor >= this.props.difficulties.hard.factor) {
+        if (easyTotalFactor >= difficulties.hard.factor) {
           this.setState({
-            difficulty: this.props.difficulties.hard,
+            difficulty: difficulties.hard,
           });
-          this.prepareDictionary(this.props.difficulties.hard);
+          this.prepareDictionary(difficulties.hard);
         }
         break;
       case "hard":
