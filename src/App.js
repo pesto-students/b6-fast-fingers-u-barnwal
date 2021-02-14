@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import Landing from "./pages/Landing";
-import Game from "./pages/Game";
+import Landing from "./pages/Landing/index";
+import Game from "./pages/Game/index";
 
 class App extends Component {
   state = {

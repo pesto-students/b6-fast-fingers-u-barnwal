@@ -1,22 +1,22 @@
 import React, { Component } from "react";
-import { DifficultyBox } from "../components/Difficulty";
-import WordCounter from "../components/WordCounter";
-import easy from "./../data/easy.json";
-import medium from "./../data/medium.json";
-import hard from "./../data/hard.json";
-import { difficulties } from "../constants";
+import { DifficultyBox } from "../../components/Difficulty";
+import WordCounter from "../../components/WordCounter";
+import easy from "../../data/easy.json";
+import medium from "../../data/medium.json";
+import hard from "../../data/hard.json";
+import { difficulties } from "../../constants";
 
 // + Styles
-import "./css/landing.css";
+import "./../Landing/css/landing.css";
 import "./css/game.css";
 
 // + Image
-import imgLogo from "./../images/logo.svg";
-import icUser from "./../images/icons/person.png";
-import icCross from "./../images/icons/cross.png";
-import imgReload from "./../images/icons/reload.png";
-import imgGame from "./../images/icons/gamepad.png";
-import Button from "../components/Button";
+import imgLogo from "./../../images/logo.svg";
+import icUser from "./../../images/icons/person.png";
+import icCross from "./../../images/icons/cross.png";
+import imgReload from "./../../images/icons/reload.png";
+import imgGame from "./../../images/icons/gamepad.png";
+import Button from "../../components/Button";
 
 const DIFFICULTY_FACTOR_INCREMENT = 0.01;
 

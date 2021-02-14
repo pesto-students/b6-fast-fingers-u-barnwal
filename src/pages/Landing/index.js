@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Difficulty } from "../components/Difficulty";
+import { Difficulty } from "../../components/Difficulty";
 import { SlideDown } from "react-slidedown";
 
 // + Styles
@@ -7,10 +7,10 @@ import "react-slidedown/lib/slidedown.css";
 import "./css/landing.css";
 
 // + Image
-import imgLogo from "./../images/logo.svg";
-import imgPlay from "./../images/icons/play.png";
-import LabeledHR from "../components/LabeledHR";
-import Button from "../components/Button";
+import imgLogo from "./../../images/logo.svg";
+import imgPlay from "./../../images/icons/play.png";
+import LabeledHR from "../../components/LabeledHR";
+import Button from "../../components/Button";
 
 class Landing extends Component {
   state = {
@@ -59,7 +59,7 @@ class Landing extends Component {
 
         <h1>Fast Fingers</h1>
 
-        {/* - Component */}
+        {/* Component */}
         <LabeledHR>The ultimate typing game</LabeledHR>
 
         <div className="wrap-inputs">
@@ -81,9 +81,11 @@ class Landing extends Component {
             )}
           </SlideDown>
 
+          {/* Container */}
           <Difficulty onDifficultyChanged={this.handleDifficultyChanged} />
         </div>
 
+        {/* Component */}
         <Button
           iconSrc={imgPlay}
           onClick={this.handleStartGame}
