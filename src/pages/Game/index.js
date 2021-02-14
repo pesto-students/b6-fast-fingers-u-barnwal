@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { getScoreAsDuration } from "../../utils";
 
 // + Styles
 import "./../Landing/css/landing.css";
@@ -18,6 +19,7 @@ import imgReload from "./../../images/icons/reload.png";
 import Difficulty from "../../components/Difficulty";
 import Paused from "./containers/Paused";
 import TopNav from "./containers/TopNav";
+import ScoreBoard from "./containers/ScoreBoard";
 
 const DIFFICULTY_FACTOR_INCREMENT = 0.01;
 
@@ -58,16 +60,6 @@ class Game extends Component {
     this.state.dictionary[
       Math.floor(Math.random() * this.state.dictionary.length)
     ];
-
-  getScoreAsDuration = (score) => {
-    let minutes = Math.floor(score / 60);
-    let seconds = Math.floor(score % 60);
-
-    minutes = minutes < 10 ? "0" + minutes : minutes;
-    seconds = seconds < 10 ? "0" + seconds : seconds;
-
-    return minutes + " : " + seconds;
-  };
 
   startScore = () => {
     this.interval = setInterval(
@@ -185,7 +177,7 @@ class Game extends Component {
                   <h2 className="title">Game Over!</h2>
                   <br />
                   <h4>You scored</h4>
-                  <h3>{this.getScoreAsDuration(scores[scores.length - 1])}</h3>
+                  <h3>{getScoreAsDuration(scores[scores.length - 1])}</h3>
                   <br />
 
                   <Button
@@ -202,39 +194,18 @@ class Game extends Component {
             </div>
 
             <div className="col-md-4 my-4 my-md-0">
-              <div className="wrap-scores">
-                <div className="title">Score Board</div>
-                <div className="body">
-                  <table>
-                    <tbody>
-                      {scores.map((s, index) => (
-                        <tr
-                          key={"game" + index}
-                          className={s === maxScore ? "best" : ""}
-                        >
-                          <th>Game {index + 1}</th>
-                          <th>:</th>
-                          <td>{this.getScoreAsDuration(s)} </td>
-                        </tr>
-                      ))}
-                      {scores.length <= 0 && (
-                        <tr>
-                          <td className="text-center" colSpan="3">
-                            No games played yet!
-                          </td>
-                        </tr>
-                      )}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
+              <ScoreBoard scores={scores} maxScore={maxScore} />
+
               <br />
+
               <h4 className="text-center">
-                <b>Score: {this.getScoreAsDuration(score)}</b>
+                <b>Score: {getScoreAsDuration(score)}</b>
               </h4>
+
               <br />
               <Difficulty difficulty={this.state.difficulty} active="true" />
               <br />
+
               <h6>
                 <b>
                   <span role="img">ℹ️</span> &nbsp; Press <kbd>SPACE</kbd> to
