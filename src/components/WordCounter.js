@@ -20,16 +20,11 @@ function WordCounter({
   const timer = useRef(null);
 
   const [letters, setLetters] = useState([]);
-  const [tick, setTick] = useState(0);
-  const [max, setMax] = useState(0);
+  const [tick, setTick] = useState(
+    Math.max(Math.ceil(word.length / factor), MIN_TIME_COUNTER)
+  );
+  const [max, setMax] = useState(tick);
   const [text, setText] = useState("");
-
-  // state = {
-  //   letters: [],
-  //   tick: 0,
-  //   max: 0,
-  //   text: "",
-  // };
 
   const handleTextChanged = (e) => {
     const inputText = e.target.value;
@@ -83,7 +78,11 @@ function WordCounter({
     onCounterEnd();
   };
 
-  const initialize = () => {
+  // * on mount
+  useEffect(onWordStart, []);
+
+  // * on factor changes
+  useEffect(() => {
     let initLetters = word.split("").map((c, i) => {
       return { name: c, key: i, active: false, state: "" };
     });
@@ -93,35 +92,28 @@ function WordCounter({
       MIN_TIME_COUNTER
     );
 
-    console.log("initTick", initTick);
-
     setLetters(initLetters);
     setTick(initTick);
     setMax(initTick);
     setText("");
 
-    console.log("tick", tick);
-
     startTimerTick();
-  };
-
-  const startTimerTick = () => {
-    console.log("startTimerTick", tick);
-    timer.current = setInterval(() => {
-      console.log("startTimerTick", tick);
-      if (tick <= 0) handleCounterEnd();
-      else setTick((tick) => tick - 1);
-    }, 1000);
-  };
-
-  useEffect(() => {
-    initialize();
-    onWordStart();
 
     return () => clearInterval(timer.current);
-  }, []);
+  }, [factor]);
 
-  useEffect(() => initialize(), [factor]);
+  // * on timer tick
+  useEffect(() => {
+    if (tick <= 0) {
+      clearInterval(timer.current);
+      handleCounterEnd();
+    }
+  }, [tick]);
+
+  const startTimerTick = () => {
+    if (tick > 0)
+      timer.current = setInterval(() => setTick((tick) => tick - 1), 1000);
+  };
 
   return (
     <div className="wrap-counter">
