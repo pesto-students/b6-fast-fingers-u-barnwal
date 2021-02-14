@@ -1,22 +1,23 @@
 import React, { Component } from "react";
-import WordCounter from "../../components/WordCounter";
-import easy from "../../data/easy.json";
-import medium from "../../data/medium.json";
-import hard from "../../data/hard.json";
-import { difficulties } from "../../constants";
 
 // + Styles
 import "./../Landing/css/landing.css";
 import "./css/game.css";
 
-// + Image
-import imgLogo from "./../../images/logo.svg";
-import icUser from "./../../images/icons/person.png";
-import icCross from "./../../images/icons/cross.png";
-import imgReload from "./../../images/icons/reload.png";
-import imgGame from "./../../images/icons/gamepad.png";
+// + Components
+import WordCounter from "../../components/WordCounter";
 import Button from "../../components/Button";
+
+// + Resources
+import { difficulties } from "../../constants";
+import easy from "../../data/easy.json";
+import medium from "../../data/medium.json";
+import hard from "../../data/hard.json";
+
+import imgReload from "./../../images/icons/reload.png";
 import Difficulty from "../../components/Difficulty";
+import Paused from "./containers/Paused";
+import TopNav from "./containers/TopNav";
 
 const DIFFICULTY_FACTOR_INCREMENT = 0.01;
 
@@ -153,26 +154,7 @@ class Game extends Component {
 
     return (
       <div className="game">
-        <div className="nav">
-          <img className="logo" src={imgLogo} alt="" />
-          <h5>Fast Fingers</h5>
-
-          <div className="flex-fill"></div>
-
-          <br />
-          <br />
-
-          <img className="ic" src={icUser} alt="" />
-          <h6>{this.props.user.name}</h6>
-
-          <br />
-          <br />
-
-          <div className="btn-end" onClick={this.props.onEnd}>
-            <img className="ic" src={icCross} alt="" />
-            <h6>End Game</h6>
-          </div>
-        </div>
+        <TopNav userName={this.props.user.name} onEnd={this.props.onEnd} />
 
         <br />
 
@@ -263,22 +245,7 @@ class Game extends Component {
           </div>
         </div>
 
-        {paused && (
-          <div className="pause">
-            <img src={imgGame} alt="" />
-            <br />
-            <br />
-            <h3>
-              <b>Game Paused</b>
-            </h3>
-            <br />
-            <h6>
-              <b>
-                Press <kbd>SPACE</kbd> to unpause!
-              </b>
-            </h6>
-          </div>
-        )}
+        {paused && <Paused />}
       </div>
     );
   }
