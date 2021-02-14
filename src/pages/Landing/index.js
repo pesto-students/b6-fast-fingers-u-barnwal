@@ -11,6 +11,8 @@ import imgLogo from "./../../images/logo.svg";
 import imgPlay from "./../../images/icons/play.png";
 import LabeledHR from "../../components/LabeledHR";
 import Button from "../../components/Button";
+import Difficulties from "./containers/Difficulties";
+import TextInput from "../../components/TextInput";
 
 class Landing extends Component {
   state = {
@@ -63,14 +65,14 @@ class Landing extends Component {
         <LabeledHR>The ultimate typing game</LabeledHR>
 
         <div className="wrap-inputs">
-          <input
-            type="text"
+          <TextInput
             placeholder="Type your name..."
             value={this.state.name}
             onChange={this.handleNameChange}
             autoFocus
           />
 
+          {/* Component */}
           <SlideDown className={"my-dropdown-slideup"}>
             {this.state.error !== "" ? (
               <div className="txtError mt-3">
@@ -82,7 +84,7 @@ class Landing extends Component {
           </SlideDown>
 
           {/* Container */}
-          <Difficulty onDifficultyChanged={this.handleDifficultyChanged} />
+          <Difficulties onDifficultyChanged={this.handleDifficultyChanged} />
         </div>
 
         {/* Component */}

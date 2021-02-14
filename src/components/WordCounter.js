@@ -3,6 +3,7 @@ import { CircularProgressbar } from "react-circular-progressbar";
 
 // + Styles
 import "react-circular-progressbar/dist/styles.css";
+import TextInput from "./TextInput";
 
 const MIN_TIME_COUNTER = 2;
 
@@ -141,8 +142,8 @@ class WordCounter extends Component {
             </span>
           ))}
         </div>
-        <input
-          type="text"
+
+        <TextInput
           value={this.state.text}
           onChange={this.handleTextChanged}
           onKeyUp={this.handleTextKeyUp}

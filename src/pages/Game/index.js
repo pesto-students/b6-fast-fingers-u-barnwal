@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { DifficultyBox } from "../../components/Difficulty";
 import WordCounter from "../../components/WordCounter";
 import easy from "../../data/easy.json";
 import medium from "../../data/medium.json";
@@ -17,6 +16,7 @@ import icCross from "./../../images/icons/cross.png";
 import imgReload from "./../../images/icons/reload.png";
 import imgGame from "./../../images/icons/gamepad.png";
 import Button from "../../components/Button";
+import Difficulty from "../../components/Difficulty";
 
 const DIFFICULTY_FACTOR_INCREMENT = 0.01;
 
@@ -251,7 +251,7 @@ class Game extends Component {
                 <b>Score: {this.getScoreAsDuration(score)}</b>
               </h4>
               <br />
-              <DifficultyBox difficulty={this.state.difficulty} active="true" />
+              <Difficulty difficulty={this.state.difficulty} active="true" />
               <br />
               <h6>
                 <b>
