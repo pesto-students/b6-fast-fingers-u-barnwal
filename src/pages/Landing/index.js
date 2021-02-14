@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Difficulty } from "../../components/Difficulty";
 import { SlideDown } from "react-slidedown";
 
@@ -14,88 +14,76 @@ import Button from "../../components/Button";
 import Difficulties from "./containers/Difficulties";
 import TextInput from "../../components/TextInput";
 
-class Landing extends Component {
-  state = {
-    name: "",
-    difficulty: {},
-    error: "",
-  };
+function Landing({ onStart }) {
+  const [name, setName] = useState("");
+  const [difficulty, setDifficulty] = useState("");
+  const [error, setError] = useState("");
 
-  timeout = null;
+  const errorTimeout = useRef(null);
 
-  handleStartGame = () => {
-    if (this.state.name === "") this.showError("Please enter your name!");
-    else if (!this.state.difficulty.hasOwnProperty("key"))
-      this.showError("Please choose a difficulty!");
+  const handleStartGame = () => {
+    if (name === "") showError("Please enter your name!");
+    else if (!difficulty.hasOwnProperty("key"))
+      showError("Please choose a difficulty!");
     else
-      this.props.onStart({
-        name: this.state.name,
-        difficulty: this.state.difficulty,
+      onStart({
+        name: name,
+        difficulty: difficulty,
       });
   };
 
-  handleNameChange = (e) => {
-    this.setState({ name: e.target.value });
+  const handleNameChange = (e) => {
+    setName(e.target.value);
   };
 
-  handleDifficultyChanged = (difficulty) => {
-    this.setState({ difficulty });
-  };
+  const showError = (message) => {
+    setError(message);
 
-  showError = (message) => {
-    this.setState({ error: message });
+    // * auto hide error after 3 seconds
     if (message !== "")
-      this.timeout = setTimeout(() => this.showError(""), 3000);
+      errorTimeout.current = setTimeout(() => showError(""), 3000);
   };
 
-  componentWillUnmount() {
-    clearTimeout(this.timeout);
-  }
+  useEffect(() => clearTimeout(errorTimeout.current), []);
 
-  render() {
-    return (
-      <div className="container-fluid landing">
-        <img src={imgLogo} alt="" />
+  return (
+    <div className="container-fluid landing">
+      <img src={imgLogo} alt="" />
 
-        <h1>Fast Fingers</h1>
+      <h1>Fast Fingers</h1>
 
-        {/* Component */}
-        <LabeledHR>The ultimate typing game</LabeledHR>
+      {/* Component */}
+      <LabeledHR>The ultimate typing game</LabeledHR>
 
-        <div className="wrap-inputs">
-          <TextInput
-            placeholder="Type your name..."
-            value={this.state.name}
-            onChange={this.handleNameChange}
-            autoFocus
-          />
-
-          {/* Component */}
-          <SlideDown className={"my-dropdown-slideup"}>
-            {this.state.error !== "" ? (
-              <div className="txtError mt-3">
-                <b>{this.state.error}</b>
-              </div>
-            ) : (
-              ""
-            )}
-          </SlideDown>
-
-          {/* Container */}
-          <Difficulties onDifficultyChanged={this.handleDifficultyChanged} />
-        </div>
+      <div className="wrap-inputs">
+        <TextInput
+          placeholder="Type your name..."
+          value={name}
+          onChange={handleNameChange}
+          autoFocus
+        />
 
         {/* Component */}
-        <Button
-          iconSrc={imgPlay}
-          onClick={this.handleStartGame}
-          className="btn-play"
-        >
-          Start Game
-        </Button>
+        <SlideDown className={"my-dropdown-slideup"}>
+          {error !== "" ? (
+            <div className="txtError mt-3">
+              <b>{error}</b>
+            </div>
+          ) : (
+            ""
+          )}
+        </SlideDown>
+
+        {/* Container */}
+        <Difficulties onDifficultyChanged={setDifficulty} />
       </div>
-    );
-  }
+
+      {/* Component */}
+      <Button iconSrc={imgPlay} onClick={handleStartGame} className="btn-play">
+        Start Game
+      </Button>
+    </div>
+  );
 }
 
 export default Landing;
