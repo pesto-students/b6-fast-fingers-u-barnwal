@@ -1,39 +1,33 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import Landing from "./pages/Landing/";
 import Game from "./pages/Game/";
 
-class App extends Component {
-  state = {
-    gameStarted: false,
-    name: "",
-    difficulty: {},
+function App() {
+  const [gameStarted, setGameStarted] = useState(false);
+  const [name, setName] = useState("");
+  const [difficulty, setDifficulty] = useState({});
+
+  const handleGameStart = ({ name, difficulty }) => {
+    setName(name);
+    setDifficulty(difficulty);
+    setGameStarted(true);
   };
 
-  handleGameStart = ({ name, difficulty }) => {
-    this.setState({ gameStarted: true, name, difficulty });
+  const handleGameEnd = () => {
+    setName("");
+    setDifficulty({});
+    setGameStarted(false);
   };
 
-  handleGameEnd = () => {
-    this.setState({ gameStarted: false, name: "", difficulty: {} });
-  };
-
-  render() {
-    // console.log("App:", this.state);
-
-    return (
-      <main>
-        {this.state.gameStarted ? (
-          <Game
-            user={{ name: this.state.name }}
-            difficulty={this.state.difficulty}
-            onEnd={this.handleGameEnd}
-          />
-        ) : (
-          <Landing onStart={this.handleGameStart} />
-        )}
-      </main>
-    );
-  }
+  return (
+    <main>
+      {gameStarted ? (
+        <Game user={{ name }} difficulty={difficulty} onEnd={handleGameEnd} />
+      ) : (
+        <Landing onStart={handleGameStart} />
+      )}
+    </main>
+  );
 }
 
 export default App;
