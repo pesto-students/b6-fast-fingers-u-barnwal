@@ -9,6 +9,8 @@ import "./css/landing.css";
 // + Image
 import imgLogo from "./../images/logo.svg";
 import imgPlay from "./../images/icons/play.png";
+import LabeledHR from "../components/LabeledHR";
+import Button from "../components/Button";
 
 class Landing extends Component {
   state = {
@@ -57,11 +59,8 @@ class Landing extends Component {
 
         <h1>Fast Fingers</h1>
 
-        <div className="labeled-hr">
-          <div></div>
-          <span>The ultimate typing game</span>
-          <div></div>
-        </div>
+        {/* - Component */}
+        <LabeledHR>The ultimate typing game</LabeledHR>
 
         <div className="wrap-inputs">
           <input
@@ -85,10 +84,13 @@ class Landing extends Component {
           <Difficulty onDifficultyChanged={this.handleDifficultyChanged} />
         </div>
 
-        <div onClick={this.handleStartGame} className="btn-play">
-          <img src={imgPlay} alt="" />
-          <span>Start Game</span>
-        </div>
+        <Button
+          iconSrc={imgPlay}
+          onClick={this.handleStartGame}
+          className="btn-play"
+        >
+          Start Game
+        </Button>
       </div>
     );
   }

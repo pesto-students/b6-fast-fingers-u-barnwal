@@ -16,6 +16,7 @@ import icUser from "./../images/icons/person.png";
 import icCross from "./../images/icons/cross.png";
 import imgReload from "./../images/icons/reload.png";
 import imgGame from "./../images/icons/gamepad.png";
+import Button from "../components/Button";
 
 const DIFFICULTY_FACTOR_INCREMENT = 0.01;
 
@@ -204,10 +205,14 @@ class Game extends Component {
                   <h4>You scored</h4>
                   <h3>{this.getScoreAsDuration(scores[scores.length - 1])}</h3>
                   <br />
-                  <div onClick={this.handleRestartGame} className="btn-play">
-                    <img src={imgReload} alt="" />
-                    <span>Play Again</span>
-                  </div>
+
+                  <Button
+                    iconSrc={imgReload}
+                    onClick={this.handleRestartGame}
+                    className="btn-play"
+                  >
+                    Play Again
+                  </Button>
                 </div>
               ) : (
                 ""
