@@ -28,7 +28,12 @@ function ScoreBoard({ scores, maxScore = 0 }) {
               <RowEmpty />
             ) : (
               scores.map((s, index) => (
-                <RowScore score={s} id={index + 1} isBest={s === maxScore} />
+                <RowScore
+                  score={s}
+                  id={index + 1}
+                  key={index}
+                  isBest={s === maxScore}
+                />
               ))
             )}
           </tbody>

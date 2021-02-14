@@ -1,3 +1,5 @@
+const DIFFICULTY_FACTOR_INCREMENT = 0.01;
+
 const difficulties = {
   easy: {
     key: "easy",
@@ -16,4 +18,4 @@ const difficulties = {
   },
 };
 
-export { difficulties };
+export { DIFFICULTY_FACTOR_INCREMENT, difficulties };

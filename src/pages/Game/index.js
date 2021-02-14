@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { getScoreAsDuration } from "../../utils";
 
 // + Styles
@@ -9,93 +9,77 @@ import "./css/game.css";
 import WordCounter from "../../components/WordCounter";
 import Button from "../../components/Button";
 
-// + Resources
-import { difficulties } from "../../constants";
+// + Values
+import { difficulties, DIFFICULTY_FACTOR_INCREMENT } from "../../constants";
 import easy from "../../data/easy.json";
 import medium from "../../data/medium.json";
 import hard from "../../data/hard.json";
 
+// + Resources
 import imgReload from "./../../images/icons/reload.png";
 import Difficulty from "../../components/Difficulty";
 import Paused from "./containers/Paused";
 import TopNav from "./containers/TopNav";
 import ScoreBoard from "./containers/ScoreBoard";
 
-const DIFFICULTY_FACTOR_INCREMENT = 0.01;
+function Game({ user, difficulty: selectedDifficulty, onEnd }) {
+  const scoreInterval = useRef(null);
 
-class Game extends Component {
-  state = {
-    dictionary: [],
-    levelFactor: 0,
-    gameMode: true,
-    score: 0,
-    scores: [],
-    difficulty: {},
-    paused: false,
-  };
+  const [dictionary, setDictionary] = useState([]);
+  const [levelFactor, setLevelFactor] = useState(0);
+  const [gameMode, setGameMode] = useState(true);
+  const [score, setScore] = useState(0);
+  const [scores, setScores] = useState([]);
+  const [difficulty, setDifficulty] = useState(selectedDifficulty);
+  const [paused, setPaused] = useState(false);
 
-  interval = null;
-
-  constructor(props) {
-    super(props);
-    this.state.difficulty = this.props.difficulty;
-  }
-
-  prepareDictionary = (difficulty) => {
+  const prepareDictionary = (difficulty) => {
     switch (difficulty.key) {
       case "easy":
-        this.setState({ dictionary: easy });
+        setDictionary(easy);
         break;
       case "medium":
-        this.setState({ dictionary: medium });
+        setDictionary(medium);
         break;
       case "hard":
-        this.setState({ dictionary: hard });
+        setDictionary(hard);
         break;
       default:
     }
   };
 
-  getRandomWord = () =>
-    this.state.dictionary[
-      Math.floor(Math.random() * this.state.dictionary.length)
-    ];
+  const getRandomWord = () =>
+    dictionary[Math.floor(Math.random() * dictionary.length)];
 
-  startScore = () => {
-    this.interval = setInterval(
-      () => this.setState({ score: this.state.score + 1 }),
+  const startScore = () => {
+    scoreInterval.current = setInterval(
+      () => setScore((score) => score + 1),
       1000
     );
   };
 
-  resetScore = () => {
-    this.setState({ score: 0 });
-    clearInterval(this.interval);
+  const resetScore = () => {
+    setScore(0);
+    clearInterval(scoreInterval.current);
   };
 
-  incrementDifficultyFactor = () => {
-    this.setState({
-      levelFactor: this.state.levelFactor + DIFFICULTY_FACTOR_INCREMENT,
-    });
+  const incrementDifficultyFactor = () => {
+    setLevelFactor(levelFactor + DIFFICULTY_FACTOR_INCREMENT);
 
-    let easyTotalFactor = difficulties.easy.factor + this.state.levelFactor;
+    let easyTotalFactor = difficulties.easy.factor + levelFactor;
 
-    switch (this.state.difficulty.key) {
+    switch (difficulty.key) {
       case "easy":
         if (easyTotalFactor >= difficulties.medium.factor) {
-          this.setState({
-            difficulty: difficulties.medium,
-          });
-          this.prepareDictionary(difficulties.medium);
+          setDifficulty(difficulties.medium);
+          prepareDictionary(difficulties.medium);
         }
 
         break;
       case "medium":
         if (easyTotalFactor >= difficulties.hard.factor) {
-          this.setState({
-            difficulty: difficulties.hard,
-          });
-          this.prepareDictionary(difficulties.hard);
+          setDifficulty(difficulties.hard);
+          prepareDictionary(difficulties.hard);
         }
         break;
       case "hard":
@@ -103,123 +87,117 @@ class Game extends Component {
     }
   };
 
-  handleRestartGame = () => {
-    this.setState({ gameMode: true });
+  const handleRestartGame = () => {
+    setGameMode(true);
   };
 
-  handleGamePause = () => {
-    clearInterval(this.interval);
-    this.setState({ paused: true });
+  const handleGamePause = () => {
+    clearInterval(scoreInterval.current);
+    setPaused(true);
   };
 
-  handleGameUnpause = () => {
-    this.startScore();
-    this.setState({ paused: false });
+  const handleGameUnpause = () => {
+    startScore();
+    setPaused(false);
   };
 
-  handleWordStarted = () => {
-    this.resetScore();
-    this.startScore();
+  const handleWordStarted = () => {
+    resetScore();
+    startScore();
   };
 
-  handleWordCompleted = () => {
-    this.incrementDifficultyFactor();
+  const handleWordCompleted = () => {
+    incrementDifficultyFactor();
   };
 
-  handleCounterEnd = () => {
-    let scores = this.state.scores;
-    scores.push(this.state.score);
+  const handleCounterEnd = () => {
+    scores.push(score);
 
-    this.setState({ gameMode: false, scores });
-    this.resetScore();
+    setGameMode(false);
+    setScores(scores);
+
+    resetScore();
   };
 
-  componentDidMount() {
-    this.prepareDictionary(this.state.difficulty);
-  }
+  useEffect(() => prepareDictionary(selectedDifficulty), []);
 
-  render() {
-    // console.log("Game", this.state);
+  const maxScore = Math.max.apply(Math, scores);
 
-    const { gameMode, score, scores, paused } = this.state;
-    const maxScore = Math.max.apply(Math, scores);
+  return (
+    <div className="game">
+      <TopNav userName={user.name} onEnd={onEnd} />
 
-    return (
-      <div className="game">
-        <TopNav userName={this.props.user.name} onEnd={this.props.onEnd} />
+      <br />
 
-        <br />
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-md-8 my-4 my-md-0 order-md-12">
+            {gameMode && dictionary.length > 0 ? (
+              <WordCounter
+                paused={paused}
+                word={getRandomWord()}
+                factor={difficulty.factor + levelFactor}
+                onWordStart={handleWordStarted}
+                onWordComplete={handleWordCompleted}
+                onCounterEnd={handleCounterEnd}
+                onPause={handleGamePause}
+                onUnpause={handleGameUnpause}
+              />
+            ) : (
+              "No data in dictionary!"
+            )}
+            {!gameMode ? (
+              <div
+                className={
+                  "wrap-game-over" +
+                  (scores[scores.length - 1] === maxScore ? " best" : "")
+                }
+              >
+                <h2 className="title">Game Over!</h2>
+                <br />
+                <h4>You scored</h4>
+                <h3>{getScoreAsDuration(scores[scores.length - 1])}</h3>
+                <br />
 
-        <div className="container-fluid">
-          <div className="row">
-            <div className="col-md-8 my-4 my-md-0 order-md-12">
-              {gameMode && this.state.dictionary.length > 0 ? (
-                <WordCounter
-                  paused={paused}
-                  word={this.getRandomWord()}
-                  factor={this.state.difficulty.factor + this.state.levelFactor}
-                  onWordStart={this.handleWordStarted}
-                  onWordComplete={this.handleWordCompleted}
-                  onCounterEnd={this.handleCounterEnd}
-                  onPause={this.handleGamePause}
-                  onUnpause={this.handleGameUnpause}
-                />
-              ) : (
-                ""
-              )}
-              {!gameMode ? (
-                <div
-                  className={
-                    "wrap-game-over" +
-                    (scores[scores.length - 1] === maxScore ? " best" : "")
-                  }
+                <Button
+                  iconSrc={imgReload}
+                  onClick={handleRestartGame}
+                  className="btn-play"
                 >
-                  <h2 className="title">Game Over!</h2>
-                  <br />
-                  <h4>You scored</h4>
-                  <h3>{getScoreAsDuration(scores[scores.length - 1])}</h3>
-                  <br />
+                  Play Again
+                </Button>
+              </div>
+            ) : (
+              ""
+            )}
+          </div>
 
-                  <Button
-                    iconSrc={imgReload}
-                    onClick={this.handleRestartGame}
-                    className="btn-play"
-                  >
-                    Play Again
-                  </Button>
-                </div>
-              ) : (
-                ""
-              )}
-            </div>
+          <div className="col-md-4 my-4 my-md-0">
+            <ScoreBoard scores={scores} maxScore={maxScore} />
 
-            <div className="col-md-4 my-4 my-md-0">
-              <ScoreBoard scores={scores} maxScore={maxScore} />
+            <br />
 
-              <br />
+            <h4 className="text-center">
+              <b>Score: {getScoreAsDuration(score)}</b>
+            </h4>
 
-              <h4 className="text-center">
-                <b>Score: {getScoreAsDuration(score)}</b>
-              </h4>
+            <br />
+            <Difficulty difficulty={difficulty} active="true" />
+            <br />
 
-              <br />
-              <Difficulty difficulty={this.state.difficulty} active="true" />
-              <br />
-
-              <h6>
-                <b>
-                  <span role="img">ℹ️</span> &nbsp; Press <kbd>SPACE</kbd> to
-                  pause!
-                </b>
-              </h6>
-            </div>
+            <h6>
+              <b>
+                <span role="img">ℹ️</span> &nbsp; Press <kbd>SPACE</kbd> to
+                pause!
+              </b>
+            </h6>
           </div>
         </div>
-
-        {paused && <Paused />}
       </div>
-    );
-  }
+
+      {paused && <Paused />}
+    </div>
+  );
 }
 
 export default Game;
