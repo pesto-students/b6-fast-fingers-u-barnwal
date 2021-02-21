@@ -1,0 +1,275 @@
+@import "./../../scss/variables";
+
+.game {
+  color: $color-primary;
+
+  .nav {
+    display: flex;
+    align-items: center;
+    padding: 1em;
+    background-color: rgba($color: white, $alpha: 0.2);
+
+    @media (max-width: 768px) {
+      display: block;
+      text-align: center;
+
+      * {
+        display: inline-block;
+      }
+
+      .btn-end {
+        margin: auto !important;
+        width: 200px;
+        justify-content: center;
+      }
+    }
+
+    .logo {
+      height: 25px;
+      margin-right: 1em;
+    }
+
+    h5,
+    h6 {
+      margin: 0;
+      font-weight: bold;
+    }
+
+    .ic {
+      height: 15px;
+      margin: 0 0.8em;
+    }
+
+    .btn-end {
+      margin-left: 1.5em;
+      border-radius: $default-border-radius;
+      padding: 0.5em 1em;
+      display: flex;
+      align-items: center;
+      color: white;
+      background-color: rgba($color: $color-primary, $alpha: 0.6);
+      cursor: pointer;
+      transition: background-color 0.2s;
+
+      &:hover {
+        background-color: rgba($color: $color-primary, $alpha: 0.5);
+      }
+
+      .ic {
+        margin-left: 0;
+        margin-right: 0.5em;
+        filter: brightness(100);
+      }
+
+      h6 {
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+    }
+  }
+
+  .row {
+    min-height: 85vh;
+  }
+
+  .wrap-scores {
+    border: 2px solid $color-primary;
+    border-radius: $default-border-radius;
+    margin: auto;
+    overflow: hidden;
+
+    .title {
+      color: black;
+      background-color: $color-secondary;
+      text-transform: uppercase;
+      border-bottom: 2px solid $color-primary;
+      border-radius: $default-border-radius $default-border-radius 0 0;
+      padding: 1em;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .body {
+      table {
+        width: 100%;
+        border-collapse: collapse;
+
+        tr {
+          width: 100%;
+          transition: background-color 0.2s;
+
+          &.best {
+            background-color: rgba($color: $color-primary, $alpha: 0.5);
+            color: white;
+
+            th {
+              &:first-child {
+                align-items: center;
+                display: flex;
+
+                &::after {
+                  content: "BEST";
+                  font-size: 0.5em;
+                  background-color: gold;
+                  font-weight: bold !important;
+                  padding: 2.5px 10px;
+                  color: black;
+                  border-radius: 100px;
+                  margin-left: 1em;
+                }
+              }
+            }
+          }
+
+          &:first-child {
+            th,
+            td {
+              border-top: 0;
+            }
+          }
+
+          &:last-child {
+            th,
+            td {
+              border-bottom: 0;
+            }
+          }
+
+          &:hover {
+            &:not(.best) {
+              background-color: rgba($color: white, $alpha: 0.1);
+            }
+          }
+
+          th,
+          td {
+            padding: 1em;
+            border: 1px solid rgba($color: white, $alpha: 0.2);
+
+            &:first-child {
+              border-left: 0;
+            }
+
+            &:last-child {
+              border-right: 0;
+            }
+          }
+
+          td {
+            text-align: right;
+          }
+        }
+      }
+    }
+  }
+
+  .wrap-counter,
+  .wrap-game-over {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .wrap-counter {
+    .counter {
+      .CircularProgressbar-path {
+        stroke: $color-primary;
+      }
+
+      .CircularProgressbar-trail {
+        stroke: $color-secondary;
+      }
+
+      .CircularProgressbar-text {
+        fill: $color-primary;
+      }
+    }
+
+    .word {
+      font-weight: bold;
+      font-size: 2.8em;
+      text-transform: uppercase;
+      letter-spacing: 10px;
+      margin: 0.8em 0;
+
+      span {
+        transition: font-size 0.2s;
+
+        &.true {
+          color: #52b616;
+        }
+
+        &.false {
+          color: #35467f;
+        }
+
+        &.active {
+          font-size: 1.3em;
+        }
+      }
+    }
+
+    input {
+      width: 400px;
+      max-width: 100%;
+      box-sizing: border-box;
+      padding: 0.5em;
+      background-color: rgba($color-secondary, 0.8);
+      font-weight: bold;
+      border-radius: $default-border-radius;
+      border: none;
+      font-size: 1.1em;
+      outline: none;
+      text-transform: uppercase;
+
+      &::placeholder {
+        color: $color-secondary-text;
+      }
+    }
+  }
+
+  .wrap-game-over {
+    color: white;
+
+    &.best {
+      &::before {
+        content: "New High Score!";
+        font-size: 0.8em;
+        background-color: gold;
+        font-weight: bold !important;
+        padding: 2.5px 15px;
+        color: black;
+        border-radius: 100px;
+        margin-bottom: 2em;
+      }
+    }
+
+    .title {
+      background-color: rgba($color-primary, 0.5);
+      padding: 0.5em 1.5em;
+      border-radius: 400px;
+      font-weight: bold;
+    }
+  }
+
+  .pause {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba($color: black, $alpha: 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+}
+
+kbd {
+  background-color: $color-primary !important;
+  margin: 0 10px;
+}
